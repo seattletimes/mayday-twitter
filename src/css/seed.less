@@ -32,6 +32,33 @@
     background: @df-off-white;
     padding: 8px;
     box-shadow: 0 8px 16px rgba(0, 0, 0, .3);
+
+    .timestamp {
+      display: block;
+      font-size: 12px;
+    }
+
+    .follow {
+      display: inline-block;
+      background: @df-blue;
+      color: @df-off-white;
+      border-radius: 4px;
+      font-size: 12px;
+      font-family: @df-sans;
+      padding: 0 4px;
+      float: right;
+    }
+
+    .hashtags {
+      font-size: 12px;
+      a {
+        color: @df-dark-gray;
+
+        &:hover {
+          color: @df-blue;
+        }
+      }
+    }
   }
 }
 

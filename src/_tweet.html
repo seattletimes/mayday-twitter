@@ -1,10 +1,18 @@
 <div class="tweet">
-  <a href="http://twitter.com/<%= handle %>" class="name"><%= name %></a>
-  <span class="timestamp" data-time="<%= timestamp %>"><%= t.moment(timestamp).fromNow() %></span>
-  <p class="text"><%= tweet %>
+  <a href="https://twitter.com/<%= handle %>" class="follow" target="_new">Follow @<%= handle %></a>
+  <a href="http://twitter.com/<%= handle %>" class="name" target="_new"><%= name %></a>
+  <a href="http://twitter.com/<%= handle %>/status/<%= id %>" class="timestamp" data-time="<%= timestamp %>" target="_new"><%= t.moment(timestamp).fromNow() %></a>
+  <p class="text"><%= tweet.replace(/@(\w+)/, function(mention, name) {
+    return '<a href="http://twitter.com/' + name + '" target="_new">' + mention + "</a>";
+  }) %>
   <% if (media.length) media.forEach(function(image) { var url = urls[0]; %>
-  <% if (url) { %><a href="<%= url %>"><% } %>
+  <% if (url) { %><a href="<%= url %>" target="_new"><% } %>
   <img src="<%= image.url %>">
   <% if (url) { %></a><% } %>
   <% }); %>
+  <p class="hashtags">
+  <% tags.forEach(function(tag) { %>
+    <a href="http://twitter.com/hashtag/<%= tag %>" target="_new">#<%= tag %></a>
+  <% }) %>
+  </p>
 </div>

@@ -10,7 +10,9 @@ var distill = function(tweet) {
     name: tweet.user.name,
     handle: tweet.user.screen_name,
     timestamp: Date.now(),
-    tweet: tweet.text
+    tweet: tweet.text,
+    id: tweet.id_str,
+    avatar: tweet.user.profile_image_url
   }
   var entities = tweet.entities;
   if (entities.hashtags) {
@@ -26,6 +28,11 @@ var distill = function(tweet) {
         text: e.url,
         url: e.media_url
       }
+    });
+  }
+  if (entities.mentions) {
+    parsed.mentions = entities.mentions.map(function(e) {
+      return e.screen_name
     });
   }
   if (tweet.coordinates && tweet.coordinates.type == "Point") {

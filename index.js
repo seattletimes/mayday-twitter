@@ -16,6 +16,20 @@ var client = new Twitter({
 
 var db = new sqlite.Database("tweets.db");
 
+var tableDef = {
+  name: "TEXT",
+  handle: "TEXT",
+  timestamp: "INTEGER",
+  id: "TEXT",
+  tweet: "TEXT",
+  latlng: "TEXT",
+  media: "TEXT",
+  tags: "TEXT",
+  urls: "TEXT",
+  mentions: "TEXT",
+  avatar: "TEXT"
+};
+
 var follow = [
   "audcarls",
   "seattletimes",
@@ -81,8 +95,13 @@ async.waterfall([
     //init database
     db.get('SELECT * FROM sqlite_master WHERE type = "table" AND name = "tweets";', function(err, exists) {
       if (!exists) {
+        var columns = [];
+        for (var column in tableDef) {
+          columns.push(column + " " + tableDef[column]);
+        }
+        var tweetTable = "CREATE TABLE tweets (" + columns.join(",") + ");";
         async.parallel([
-          db.run.bind(db, "CREATE TABLE tweets (name TEXT, handle TEXT, timestamp INTEGER, tweet TEXT, latlng TEXT, media TEXT, tags TEXT, urls TEXT);"),
+          db.run.bind(db, tweetTable),
           db.run.bind(db, "CREATE TABLE users (name TEXT, id TEXT);")
         ], function(err) {
           if (err) console.log(err);
@@ -131,17 +150,14 @@ async.waterfall([
         if (!t || follow.indexOf(t.handle) == -1) return; //skip retweets
         if (t.tweet.indexOf("RT") == 0) return; //skip retweets
         console.log(t);
-        var query = "INSERT INTO tweets (name, handle, timestamp, tweet, latlng, media, tags, urls) VALUES (?,?,?,?,?,?,?,?);";
-        var values = [
-          t.name,
-          t.handle,
-          t.timestamp,
-          t.tweet,
-          t.latlng || "",
-          JSON.stringify(t.images || []),
-          JSON.stringify(t.tags || []),
-          JSON.stringify(t.urls || [])
-        ];
+        var keys = Object.keys(tableDef);
+        var serialized = "media tags urls mentions".split(" ");
+        var query = "INSERT INTO tweets (" + keys.join(",") + ") VALUES (" + keys.map(function() { return "?" }).join(",") + ")";
+        var values = [];
+        keys.forEach(function(key) {
+          var value = t[key];
+          values.push(serialized.indexOf(key) > -1 ? JSON.stringify(value || []) : value || "");
+        });
         db.run(query, values, function(err) {
           if (err) return console.log(err);
           scheduleDump();
