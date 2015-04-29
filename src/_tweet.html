@@ -1,0 +1,10 @@
+<div class="tweet">
+  <a href="http://twitter.com/<%= handle %>" class="name"><%= name %></a>
+  <span class="timestamp" data-time="<%= timestamp %>"><%= t.moment(timestamp).fromNow() %></span>
+  <p class="text"><%= tweet %>
+  <% if (media.length) media.forEach(function(image) { var url = urls[0]; %>
+  <% if (url) { %><a href="<%= url %>"><% } %>
+  <img src="<%= image.url %>">
+  <% if (url) { %></a><% } %>
+  <% }); %>
+</div>

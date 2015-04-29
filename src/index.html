@@ -1,0 +1,49 @@
+<%
+var process = function(post) {
+  post.urls.forEach(function(url) {
+    post.tweet = post.tweet.replace(url.short, '<a href="' + url.long + '" target="_new">' + url.long + "</a>");
+  });
+  if (post.latlng) {
+    post.latlng = post.latlng.split(",");
+  }
+};
+json.tweets.forEach(process);
+%><!doctype html>
+<html>
+  <head>
+    <title><%= json.project.title %></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <%= t.include("partials/_adHead.html") %>
+  </head>
+  <body>
+
+    <responsive-child>
+      <main class="interactive">
+        <leaflet-map zoom=14>
+          <tile-layer layer="cartoPositron"></tile-layer>
+          <% json.tweets.forEach(function(tweet) {
+            if (!tweet.latlng) return;
+          %>
+          <map-marker class="tweet-marker" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
+          <% console.log(tweet) %>
+            <%= t.include("_tweet.html", tweet) %>
+          </map-marker>
+          <% }) %>
+        </leaflet-map>
+        <ul class="stream">
+          <% json.tweets.reverse().forEach(function(tweet) { %>
+          <li> <%= t.include("_tweet.html", tweet) %>
+          <% }) %>
+        </ul>
+      </main>
+    </responsive-child>
+
+    <script src="app.js"></script>
+    <% if (json.project.production) { %>
+    <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>
+    <%= t.include("partials/_workHere.html") %>
+    <% } %>
+  </body>
+</html>
