@@ -14,6 +14,8 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
+var publish = "grunt template publish";
+
 var db = new sqlite.Database("tweets.db");
 
 var tableDef = {
@@ -73,7 +75,7 @@ var dumpDB = function() {
     fs.writeFileSync("data/tweets.json", json);
     inProgress = false;
     console.log("Completed file dump, building");
-    shell.exec("grunt static", function() {
+    shell.exec(publish, function() {
       console.log("Completed build");
     });
   });
