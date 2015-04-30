@@ -5,7 +5,7 @@
   <a href="http://twitter.com/<%= data.handle %>/status/<%= data.id %>"
     class="timestamp" data-time="<%= data.timestamp %>" 
     target="_new">
-    <%= global.moment(data.timestamp).fromNow() %>
+    <%= global.helpers.moment(data.timestamp).fromNow() %>
   </a>
   <p class="text"><%= data.tweet.replace(/@(\w+)/, function(mention, name) {
     return '<a href="http://twitter.com/' + name + '" target="_new">' + mention + "</a>";

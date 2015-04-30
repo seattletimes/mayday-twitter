@@ -3,8 +3,9 @@ require("./lib/social");
 require("./lib/ads");
 require("component-leaflet-map");
 
-var map = document.querySelector("leaflet-map");
-var L = map.leaflet;
+var mapElement = document.querySelector("leaflet-map");
+var L = mapElement.leaflet;
+var map = mapElement.map;
 
 var dot = require("dot");
 dot.templateSettings.varname = "data";
@@ -12,9 +13,11 @@ dot.templateSettings.selfcontained = true;
 dot.templateSettings.evaluate = /<%([\s\S]+?)%>/g;
 dot.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
 
-var moment = require("moment");
-window.moment = moment;
 window.global = window;
+global.helpers = {
+  moment: require("moment"),
+  ages: require("./ages")
+}
 
 var tweetTemplate = dot.template(require("../_tweet.html"));
 
@@ -28,10 +31,17 @@ var getTweets = function(c) {
 }
 
 var refresh = function() {
+  //process all the timestamps
+  var times = document.querySelectorAll(".stream .timestamp");
+  for (var i = 0; i < times.length; i++) {
+    var time = times[i];
+    time.innerHTML = global.helpers.moment(time.getAttribute("data-time") * 1).fromNow();
+  }
   getTweets(function(data) {
     var tweets = data.filter(function(item) {
       return item.timestamp > config.time;
     });
+    // tweets = data;
     if (!tweets.length) return;
     //update for next sync
     config.time = tweets[0].timestamp;
@@ -40,8 +50,15 @@ var refresh = function() {
     var last = stream.querySelector("li");
     tweets.forEach(function(tweet) {
       var html = tweetTemplate(tweet);
-      if (tweet.latlng) {
+      if (tweet.latlng.length) {
         //place a marker
+        var marker = L.marker(tweet.latlng.map(function(n) { return n + .001 }), {
+          icon: L.divIcon({
+            className: "tweet-marker " + global.helpers.ages(tweet.timestamp),
+            iconSize: null
+          })
+        });
+        marker.addTo(map);
       }
       var li = document.createElement("li");
       li.innerHTML = html;

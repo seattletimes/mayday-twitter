@@ -12,7 +12,8 @@ var distill = function(tweet) {
     timestamp: Date.now(),
     tweet: tweet.text,
     id: tweet.id_str,
-    avatar: tweet.user.profile_image_url
+    avatar: tweet.user.profile_image_url,
+    latlng: null
   }
   var entities = tweet.entities;
   if (entities.hashtags) {
@@ -36,8 +37,8 @@ var distill = function(tweet) {
     });
   }
   if (tweet.coordinates && tweet.coordinates.type == "Point") {
-    parsed.latlng = tweet.coordinates.coordinates.reverse().join(",");
-    if (locationBlacklist.indexOf(parsed.latlng) > -1) {
+    parsed.latlng = tweet.coordinates.coordinates.reverse();
+    if (locationBlacklist.indexOf(parsed.latlng.join(",")) > -1) {
       parsed.latlng = null;
     }
   }

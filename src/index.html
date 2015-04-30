@@ -3,9 +3,6 @@ var process = function(post) {
   post.urls.forEach(function(url) {
     post.tweet = post.tweet.replace(url.short, '<a href="' + url.long + '" target="_new">' + url.long + "</a>");
   });
-  if (post.latlng) {
-    post.latlng = post.latlng.split(",");
-  }
 };
 json.tweets.forEach(process);
 //change now to change how we shade markers
@@ -26,30 +23,18 @@ var now = Date.now();
         <leaflet-map zoom=14>
           <tile-layer layer="cartoPositron"></tile-layer>
           <% json.tweets.forEach(function(tweet) {
-            if (!tweet.latlng) return;
-            var age = "recent";
-            var minutes = 1000 * 60;
-            var hours = 60 * minutes;
-            var elapsed = now - tweet.timestamp;
-            if (elapsed > 8 * hours) {
-              age = "ancient";
-            } else if (elapsed > 2 * hours) {
-              age = "oldest";
-            } else if (elapsed > 1 * hours) {
-              age = "older";
-            } else if (elapsed > 30 * minutes) {
-              age = "old";
-            }
+            if (!tweet.latlng || !tweet.latlng.length) return;
+            var age = global.helpers.ages(tweet.timestamp, now);
           %>
           <map-marker class="tweet-marker <%= age %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
             <%= t.include("_tweet.html", { data: tweet }) %>
           </map-marker>
+          <% }); %>
           <map-marker class="tweet-marker recent" lat="47.608607" lng="-122.34642"></map-marker>
           <map-marker class="tweet-marker old" lat="47.608607" lng="-122.33642"></map-marker>
           <map-marker class="tweet-marker older" lat="47.608607" lng="-122.32642"></map-marker>
           <map-marker class="tweet-marker oldest" lat="47.608607" lng="-122.31642"></map-marker>
           <map-marker class="tweet-marker ancient" lat="47.608607" lng="-122.30642"></map-marker>
-          <% }) %>
         </leaflet-map>
         <ul class="stream">
           <% json.tweets.forEach(function(tweet) { %>

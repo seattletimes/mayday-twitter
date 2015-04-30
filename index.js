@@ -64,7 +64,7 @@ var dumpDB = function() {
     }
     result = result || [];
     result.forEach(function(tweet) {
-      ["tags", "media", "urls", "mentions"].forEach(function(prop) {
+      ["tags", "media", "urls", "mentions", "latlng"].forEach(function(prop) {
         tweet[prop] = JSON.parse(tweet[prop]);
       });
     });
@@ -151,7 +151,7 @@ async.waterfall([
         if (t.tweet.indexOf("RT") == 0) return; //skip retweets
         console.log(t);
         var keys = Object.keys(tableDef);
-        var serialized = "media tags urls mentions".split(" ");
+        var serialized = "media tags urls mentions latlng".split(" ");
         var query = "INSERT INTO tweets (" + keys.join(",") + ") VALUES (" + keys.map(function() { return "?" }).join(",") + ")";
         var values = [];
         keys.forEach(function(key) {

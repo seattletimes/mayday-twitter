@@ -8,7 +8,10 @@ and loadSheets, which import data in a compatible way.
 var path = require("path");
 var shell = require("shelljs");
 //template hack
-global.moment = require("moment");
+global.helpers = {
+  moment: require("moment"),
+  ages: require("../src/js/ages")
+};
 
 module.exports = function(grunt) {
 
