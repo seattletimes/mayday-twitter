@@ -37,7 +37,7 @@
 
 leaflet-map {
   .tweet-marker {
-    @size: 20px;
+    @size: 16px;
     width: @size;
     height: @size;
     margin-top: -@size / 2;
@@ -46,24 +46,24 @@ leaflet-map {
     background: black;
 
     &.recent {
-      background: @df-orange;
+      background: darken(@st-dark-red, 15%);
     }
 
     &.old {
-      background: darken(@df-orange, 10%);
+      background: darken(@twitter-gray, 20%);
     }
 
     &.older {
-      background: darken(@df-orange, 20%);
+      background: darken(@twitter-gray, 10%);
     }
 
     &.oldest {
-      background: darken(@df-orange, 20%);
-      opacity: .8;
+      background: @twitter-gray;
+      opacity: .7;
     }
 
     &.ancient {
-      background: @df-dark-gray;
+      background: @twitter-gray;
       opacity: .5;
     }
   }
