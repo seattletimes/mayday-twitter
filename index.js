@@ -29,7 +29,8 @@ var follow = [
   "mikelindblom",
   "jim_brunner",
   "deleon_times",
-  "gina_cole_"
+  "gina_cole_",
+  "sjgtimes"
 ];
 
 var dumpDB = function() {
