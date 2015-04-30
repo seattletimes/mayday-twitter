@@ -42,7 +42,6 @@ var now = Date.now();
             }
           %>
           <map-marker class="tweet-marker <%= age %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
-          <% console.log(tweet) %>
             <%= t.include("_tweet.html", tweet) %>
           </map-marker>
           <map-marker class="tweet-marker recent" lat="47.608607" lng="-122.34642"></map-marker>

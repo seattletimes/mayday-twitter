@@ -37,10 +37,11 @@
 
 leaflet-map {
   .tweet-marker {
-    width: 10px;
-    height: 10px;
-    margin-top: -5px;
-    margin-left: -5px;
+    @size: 20px;
+    width: @size;
+    height: @size;
+    margin-top: -@size / 2;
+    margin-left: -@size / 2;
     border-radius: 100%;
     background: black;
 
@@ -68,6 +69,7 @@ leaflet-map {
   }
 
   .tweet {
+    width: 300px;
     img {
       max-width: 100% !important;
     }
