@@ -1,10 +1,4 @@
 <%
-var process = function(post) {
-  post.urls.forEach(function(url) {
-    post.tweet = post.tweet.replace(url.short, '<a href="' + url.long + '" target="_new">' + url.long + "</a>");
-  });
-};
-json.tweets.forEach(process);
 //change now to change how we shade markers
 var now = Date.now();
 %><!doctype html>

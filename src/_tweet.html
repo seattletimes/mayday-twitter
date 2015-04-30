@@ -1,19 +1,28 @@
 <div class="tweet">
   <img class="avatar" src="<%= data.avatar %>">
   <a href="https://twitter.com/<%= data.handle %>" class="follow" target="_new">Follow @<%= data.handle %></a>
-  <a href="http://twitter.com/<%= data.handle %>" class="name" target="_new"><%= data.name %></a>
-  <a href="http://twitter.com/<%= data.handle %>/status/<%= data.id %>"
+  <a href="https://twitter.com/<%= data.handle %>" class="name" target="_new"><%= data.name %></a>
+  <a href="https://twitter.com/<%= data.handle %>/status/<%= data.id %>"
     class="timestamp" data-time="<%= data.timestamp %>" 
     target="_new">
     <%= global.helpers.moment(data.timestamp).fromNow() %>
   </a>
-  <p class="text"><%= data.tweet.replace(/@(\w+)/, function(mention, name) {
-    return '<a href="http://twitter.com/' + name + '" target="_new">' + mention + "</a>";
-  }) %>
+  <p class="text">
+    <%
+      var text = data.tweet;
+      data.urls.forEach(function(url) {
+          text = text.replace(url.short, '<a href="' + url.long + '" target="_new">' + url.long + "</a>");
+      });
+      text = text.replace(/@(\w+)/, function(mention, name) {
+        return '<a href="http://twitter.com/' + name + '" target="_new">' + mention + "</a>";
+      });
+    %>
+    <%= text %>
+  </p>
   <% if (data.media.length) data.media.forEach(function(image) { var url = data.urls[0]; %>
-  <% if (url) { %><a href="<%= url %>" target="_new"><% } %>
-  <img src="<%= image.url %>">
-  <% if (url) { %></a><% } %>
+    <a href="<%= url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id %>" target="_new">
+      <img src="<%= image.url %>">
+    </a>
   <% }); %>
   <p class="hashtags">
   <% data.tags.forEach(function(tag) { %>
