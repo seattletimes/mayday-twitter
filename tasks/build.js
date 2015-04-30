@@ -6,6 +6,9 @@ and loadSheets, which import data in a compatible way.
 */
 
 var path = require("path");
+var shell = require("shelljs");
+//template hack
+global.moment = require("moment");
 
 module.exports = function(grunt) {
 
@@ -19,8 +22,6 @@ module.exports = function(grunt) {
     return s;
   };
 
-  grunt.template.moment = require("moment");
-
   grunt.template.formatMoney = function(s) {
     s = grunt.template.formatNumber(s);
     return s.replace(/^(-)?/, function(_, captured) { return (captured || "") + "$" });
@@ -31,7 +32,7 @@ module.exports = function(grunt) {
     var file = grunt.file.read(path.resolve("src/", where));
     var templateData = Object.create(data || grunt.data);
     templateData.t = grunt.template;
-    return grunt.template.process(file, {data: templateData});
+    return grunt.template.process(file, { data: templateData });
   };
 
   grunt.registerTask("build", "Processes index.html using shared data (if available)", function() {
@@ -45,6 +46,7 @@ module.exports = function(grunt) {
       var output = grunt.template.process(input, { data: data });
       grunt.file.write(file.dest, output);
     });
+    shell.cp("-f", "data/tweets.json", "build");
   });
 
 }

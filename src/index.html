@@ -42,7 +42,7 @@ var now = Date.now();
             }
           %>
           <map-marker class="tweet-marker <%= age %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
-            <%= t.include("_tweet.html", tweet) %>
+            <%= t.include("_tweet.html", { data: tweet }) %>
           </map-marker>
           <map-marker class="tweet-marker recent" lat="47.608607" lng="-122.34642"></map-marker>
           <map-marker class="tweet-marker old" lat="47.608607" lng="-122.33642"></map-marker>
@@ -52,13 +52,18 @@ var now = Date.now();
           <% }) %>
         </leaflet-map>
         <ul class="stream">
-          <% json.tweets.reverse().forEach(function(tweet) { %>
-          <li> <%= t.include("_tweet.html", tweet) %>
+          <% json.tweets.forEach(function(tweet) { %>
+          <li> <%= t.include("_tweet.html", { data: tweet }) %>
           <% }) %>
         </ul>
       </main>
     </responsive-child>
 
+    <script>
+var config = <%= JSON.stringify({
+  time: json.tweets.length ? json.tweets[0].timestamp : 0
+}, null, 2) %>;
+    </script>
     <script src="app.js"></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>

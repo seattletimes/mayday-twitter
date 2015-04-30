@@ -64,18 +64,18 @@ var dumpDB = function() {
     }
     result = result || [];
     result.forEach(function(tweet) {
-      ["tags", "media", "urls"].forEach(function(prop) {
+      ["tags", "media", "urls", "mentions"].forEach(function(prop) {
         tweet[prop] = JSON.parse(tweet[prop]);
       });
     });
-    json = JSON.stringify(result, null, 2);
+    json = JSON.stringify(result.reverse(), null, 2);
     if (!shell.test("-e", "data")) shell.mkdir("data");
     fs.writeFileSync("data/tweets.json", json);
     inProgress = false;
     console.log("Completed file dump, building");
-    // shell.exec("grunt static", function() {
-    //   console.log("Completed build");
-    // });
+    shell.exec("grunt static", function() {
+      console.log("Completed build");
+    });
   });
 };
 
