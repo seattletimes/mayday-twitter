@@ -78,35 +78,59 @@ leaflet-map {
 
 .tweet {
 
+  a {
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   .avatar {
     float: left;
-    margin-right: 4px;
+    margin-right: 8px;
+  }
+
+  .name {
+    color: @df-off-black;
   }
 
   .timestamp {
     display: block;
     font-size: 12px;
+    color: @twitter-gray;
   }
 
   .follow {
     display: inline-block;
-    background: @df-blue;
+    background: @twitter-gray;
+    transition: background 0.2s linear;
     color: @df-off-white;
-    border-radius: 4px;
-    font-size: 12px;
+    font-size: 11px;
     font-family: @df-sans;
-    padding: 0 4px;
+    text-transform: uppercase;
+    padding: 2px 4px;
     float: right;
+
+    &:hover {
+      background: @df-blue;
+      color: @df-off-white;
+      text-decoration: none;
+    }
+  }
+
+  .text {
+    
+    a:hover {
+      color: @df-blue;
+    }
   }
 
   .hashtags {
     font-size: 12px;
-    a {
-      color: @df-dark-gray;
 
-      &:hover {
-        color: @df-blue;
-      }
+    a {
+      color: @twitter-gray;
     }
   }
+
 }
