@@ -22,7 +22,7 @@ var distill = function(tweet) {
     parsed.urls = entities.urls.map(function(entity) { return { short: entity.url, long: entity.expanded_url }});
   }
   if (entities.media) {
-    parsed.images = entities.media.map(function(e) {
+    parsed.media = entities.media.map(function(e) {
       parsed.tweet = parsed.tweet.replace(e.url, "");
       return {
         text: e.url,
