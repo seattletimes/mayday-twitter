@@ -44,13 +44,16 @@ leaflet-map {
     margin-left: -@size / 2;
     border-radius: 100%;
     background: black;
+    opacity: .7;
 
     &.recent {
       background: darken(@st-dark-red, 15%);
+      opacity: 1;
     }
 
     &.old {
       background: darken(@twitter-gray, 20%);
+      opacity: .9;
     }
 
     &.older {
@@ -59,12 +62,11 @@ leaflet-map {
 
     &.oldest {
       background: @twitter-gray;
-      opacity: .7;
     }
 
     &.ancient {
       background: @twitter-gray;
-      opacity: .5;
+      opacity: .4;
     }
   }
 
