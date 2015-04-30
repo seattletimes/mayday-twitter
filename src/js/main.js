@@ -68,4 +68,4 @@ var refresh = function() {
   setTimeout(refresh, 15 * 1000)
 };
 
-refresh();
+setTimeout(refresh, 15 * 1000);

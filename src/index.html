@@ -24,11 +24,6 @@ var now = Date.now();
             <%= t.include("_tweet.html", { data: tweet }) %>
           </map-marker>
           <% }); %>
-          <map-marker class="tweet-marker recent" lat="47.608607" lng="-122.34642"></map-marker>
-          <map-marker class="tweet-marker old" lat="47.608607" lng="-122.33642"></map-marker>
-          <map-marker class="tweet-marker older" lat="47.608607" lng="-122.32642"></map-marker>
-          <map-marker class="tweet-marker oldest" lat="47.608607" lng="-122.31642"></map-marker>
-          <map-marker class="tweet-marker ancient" lat="47.608607" lng="-122.30642"></map-marker>
         </leaflet-map>
         <ul class="stream">
           <% json.tweets.forEach(function(tweet) { %>

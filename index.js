@@ -14,7 +14,7 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
-var publish = "grunt template publish";
+var publish = "grunt template";
 
 var follow = [
   "audcarls",
@@ -51,12 +51,12 @@ var dumpDB = function() {
     if (!shell.test("-e", "data")) shell.mkdir("data");
     fs.writeFileSync("data/tweets.json", json);
     console.log("Completed file dump, building");
-    // shell.exec(publish, function() {
-    //   inProgress = false;
-    //   console.log("Completed build");
-    //   //check again for anything that came in during publish
-    //   if (pending) dumpDB();
-    // });
+    shell.exec(publish, function() {
+      inProgress = false;
+      console.log("Completed build");
+      //check again for anything that came in during publish
+      if (pending) dumpDB();
+    });
   })
 };
 
