@@ -14,7 +14,7 @@ var now = Date.now();
 
     <responsive-child>
       <main class="interactive">
-        <leaflet-map zoom=14>
+        <leaflet-map zoom=15 lat="47.6106" lng="-122.33179">
           <tile-layer layer="cartoPositron"></tile-layer>
           <% json.tweets.forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;
