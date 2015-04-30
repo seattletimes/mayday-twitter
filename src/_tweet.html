@@ -1,4 +1,5 @@
 <div class="tweet">
+  <img class="avatar" src="<%= avatar %>">
   <a href="https://twitter.com/<%= handle %>" class="follow" target="_new">Follow @<%= handle %></a>
   <a href="http://twitter.com/<%= handle %>" class="name" target="_new"><%= name %></a>
   <a href="http://twitter.com/<%= handle %>/status/<%= id %>" class="timestamp" data-time="<%= timestamp %>" target="_new"><%= t.moment(timestamp).fromNow() %></a>
