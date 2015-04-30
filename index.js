@@ -17,26 +17,19 @@ var client = new Twitter({
 var publish = "grunt template";
 
 var follow = [
-  "audcarls",
-  "seattletimes",
-  "katrinabarlow",
-  "thomaswilburn",
+  "seattlesullivan",
+  "pgcornwell",
+  "seaclarridge",
+  "stevemiletich",
+  "stimesmcarter",
+  "katherinelong",
   "evanbush",
+  "eriklacitis",
+  "jbroomseattle",
   "mikelindblom",
-  "seatimesphoto",
-  "king5seattle",
-  "tewilburn",
-  "wsdot_traffic",
-  "komonews",
-  "wsdot",
-  "kiro7seattle",
-  "nytimes",
-  "nytvideo",
-  "washingtonpost",
-  "arstechnica",
-  "wirescenes",
-  "uwathletics",
-  "seattlepd"
+  "jim_brunner",
+  "deleon_times",
+  "gina_cole_"
 ];
 
 var dumpDB = function() {
