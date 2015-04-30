@@ -12,13 +12,61 @@
   .display-flex;
   height: 600px;
 
+  .tabs {
+    display: none;
+    font-family: @df-sans;
+
+    @media @mobile {
+      .display-flex;
+      .flex(0 0 30px);
+    }
+  }
+
+  @media @tablet {
+    .flex-direction(column);
+  }
+
+  @media @mobile {
+    height: 400px;
+  }
+
   leaflet-map {
     .flex(2);
+
+    @media @mobile {
+      display: none;
+
+      .map& {
+        display: block;
+      }
+    }
   }
 
   .stream {
     .flex(1);
+
+    @media @mobile {
+      display: none;
+
+      .stream& {
+        display: block;
+      }
+    }
   }
+}
+
+.tabs {
+
+  .tab {
+    .flex(1);
+    text-align: center;
+    cursor: pointer;
+
+    &.selected {
+      background: @df-light-gray;
+    }
+  }
+
 }
 
 .stream {

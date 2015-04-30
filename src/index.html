@@ -13,7 +13,15 @@ var now = Date.now();
   <body>
 
     <responsive-child>
-      <main class="interactive">
+      <main class="interactive map">
+        <div class="tabs">
+          <div class="tab selected" data-tab="map">
+            Map
+          </div>
+          <div class="tab" data-tab="stream">
+            Stream
+          </div>
+        </div>
         <leaflet-map zoom=15 lat="47.6106" lng="-122.33179">
           <tile-layer layer="cartoPositron"></tile-layer>
           <% json.tweets.forEach(function(tweet) {
