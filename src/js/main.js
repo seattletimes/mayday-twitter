@@ -78,5 +78,5 @@ document.querySelector(".tabs").addEventListener("click", function(e) {
   main.classList.add(tab);
   document.querySelector(".tab.selected").classList.remove("selected");
   target.classList.add("selected");
-  map.fire("resize");
+  map.invalidateSize();
 });

@@ -10,7 +10,7 @@ var distill = function(tweet) {
   var parsed = {
     name: tweet.user.name,
     handle: tweet.user.screen_name,
-    timestamp: moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").unix(),
+    timestamp: moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").valueOf(),
     tweet: tweet.text,
     id: tweet.id_str,
     avatar: tweet.user.profile_image_url,
