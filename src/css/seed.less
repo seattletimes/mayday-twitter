@@ -121,6 +121,11 @@ leaflet-map {
       opacity: 1;
     }
 
+    &.young {
+      background: desaturate(@st-dark-red, 10%);
+      opacity: 1;
+    }
+
     &.old {
       background: darken(@twitter-gray, 20%);
       opacity: .9;
@@ -141,11 +146,18 @@ leaflet-map {
       opacity: .4;
     }
 
-    &.video.recent {
+    &.video {
       text-align: center;
       // z-index: 999 !important;
       line-height: @size;
-      background: @df-blue;
+
+      &.recent {
+        background: @df-blue;
+      }
+
+      &.young {
+        background: lighten(desaturate(@df-blue, 50%), 5%);
+      }
     }
   }
 
@@ -182,7 +194,7 @@ leaflet-map {
     display: inline-block;
     width: 14px;
     height: 14px;
-    background: @df-orange;
+    background: darken(@st-dark-red, 15%);
     border-radius: 100%;
     margin-right: 8px;
     vertical-align: text-top;

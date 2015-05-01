@@ -12,6 +12,8 @@ module.exports = function(timestamp, now) {
     age = "older";
   } else if (elapsed > 30 * minutes) {
     age = "old";
+  } else if (elapsed > 15 * minutes) {
+    age = "young";
   }
   return age;
 }
