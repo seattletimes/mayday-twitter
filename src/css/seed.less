@@ -11,6 +11,7 @@
 .interactive {
   .display-flex;
   height: 600px;
+  position: relative;
 
   .tabs {
     display: none;
@@ -139,6 +140,34 @@ leaflet-map {
     .follow {
       display: none;
     }
+  }
+}
+
+.map-key {
+  position: absolute;
+  padding: 8px;
+  bottom: 8px;
+  left: 8px;
+  background: @df-off-white;
+  color: @df-dark-gray;
+  border-radius: 8px;
+  z-index: 999;
+  font-size: 12px;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+  font-family: @df-sans;
+
+  @media @tablet {
+    display: none;
+  }
+
+  .dot {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: @df-orange;
+    border-radius: 100%;
+    margin-right: 8px;
+    vertical-align: text-top;
   }
 }
 

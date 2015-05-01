@@ -38,6 +38,9 @@ var now = Date.now();
           </map-marker>
           <% }); %>
         </leaflet-map>
+        <div class="map-key">
+          <span class="dot"></span> Newest updates
+        </div>
         <ul class="stream">
           <% json.tweets.forEach(function(tweet) { %>
           <li> <%= t.include("_tweet.html", { data: tweet }) %>
