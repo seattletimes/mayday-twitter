@@ -32,7 +32,7 @@ var now = Date.now();
           <% json.tweets.forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;
             var age = global.helpers.ages(tweet.timestamp, now);
-            var tags = tweet.tags.join(" ");
+            var tags = tweet.tags.join(" ").toLowerCase();
           %>
           <map-marker class="tweet-marker <%= age %> <%= tags %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
             <%= t.include("_tweet.html", { data: tweet }) %>

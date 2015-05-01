@@ -53,7 +53,7 @@ var refresh = function() {
       if (tweet.latlng.length) {
         var marker = L.marker(tweet.latlng, {
           icon: L.divIcon({
-            className: "tweet-marker " + global.helpers.ages(tweet.timestamp) + " " + tweet.tags.join(" "),
+            className: "tweet-marker " + global.helpers.ages(tweet.timestamp) + " " + tweet.tags.join(" ").toLowerCase(),
             iconSize: null
           })
         });
