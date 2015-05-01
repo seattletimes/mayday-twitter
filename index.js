@@ -110,7 +110,7 @@ async.waterfall([
     async.each(ids, function(id, c) {
       client.get("statuses/user_timeline", {
         user_id: id,
-        count: 40
+        count: 3
       }, function(err, data) {
         if (err) return c(err);
         async.each(data, function(tweet, done) {
