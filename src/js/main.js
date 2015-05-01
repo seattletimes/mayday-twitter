@@ -46,12 +46,11 @@ var refresh = function() {
     //update for next sync
     config.time = tweets[0].timestamp;
     var list = "";
-    var stream = document.querySelector(".stream");
+    var stream = document.querySelector("ul.stream");
     var last = stream.querySelector("li");
     tweets.forEach(function(tweet) {
       var html = tweetTemplate(tweet);
       if (tweet.latlng.length) {
-        //place a marker
         var marker = L.marker(tweet.latlng, {
           icon: L.divIcon({
             className: "tweet-marker " + global.helpers.ages(tweet.timestamp),
