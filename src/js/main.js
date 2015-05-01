@@ -57,6 +57,7 @@ var refresh = function() {
             iconSize: null
           })
         });
+        marker.bindPopup(html);
         marker.addTo(map);
       }
       var li = document.createElement("li");
