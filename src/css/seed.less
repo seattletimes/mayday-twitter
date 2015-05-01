@@ -111,6 +111,11 @@ leaflet-map {
     background: black;
     opacity: .7;
 
+    &:hover {
+      z-index: 999 !important;
+      opacity: 1 !important;
+    }
+
     &.recent {
       background: darken(@st-dark-red, 15%);
       opacity: 1;
@@ -123,10 +128,12 @@ leaflet-map {
 
     &.older {
       background: darken(@twitter-gray, 10%);
+      opacity: .8;
     }
 
     &.oldest {
       background: @twitter-gray;
+      opacity: .7;
     }
 
     &.ancient {
