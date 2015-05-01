@@ -63,6 +63,11 @@ var dumpDB = function() {
   })
 };
 
+var rejectTweet = function(t) {
+  if (t.tweet[0] == "@") return true; //skip direct replies
+  if (!t || follow.indexOf(t.handle) == -1) return true; //skip retweets
+  if (t.tweet.indexOf("RT") == 0) return true; //skip retweets
+}
 
 var inProgress = false;
 var pending = false;
@@ -72,7 +77,6 @@ var scheduleDump = function() {
   }
   inProgress = setTimeout(dumpDB, 1000);
 }
-dumpDB();
 
 async.waterfall([
   db.init,
@@ -101,7 +105,32 @@ async.waterfall([
       });
     });
   },
+  function(ids, callback) {
+    //backfill tweets
+    async.each(ids, function(id, c) {
+      client.get("statuses/user_timeline", {
+        user_id: id,
+        count: 3
+      }, function(err, data) {
+        if (err) return c(err);
+        async.each(data, function(tweet, done) {
+          var t = distill(tweet);
+          if (rejectTweet(t)) return done();
+          db.get("SELECT * FROM tweets WHERE id = ?", [t.id], function(err, exists) {
+            if (exists) return done();
+            db.insertTweet(t, done);
+          });
+        }, c)
+      })
+    }, function(err) {
+      //pass IDs through
+      callback(null, ids);
+    })
+  },
   function(ids) {
+    //dump only after backfilling
+    dumpDB();
+
     client.stream("statuses/filter", {
       // locations: "-122.43,47.48,-122.22,47.73"
       // track: "Seattle"
@@ -113,9 +142,7 @@ async.waterfall([
           return db.deleteTweet(tweet.delete.status.id_str, scheduleDump);
         }
         var t = distill(tweet);
-        if (t.tweet[0] == "@") return; //skip direct replies
-        if (!t || follow.indexOf(t.handle) == -1) return; //skip retweets
-        if (t.tweet.indexOf("RT") == 0) return; //skip retweets
+        if (rejectTweet(t)) return;
         console.log(t);
         db.insertTweet(t, scheduleDump);
       });

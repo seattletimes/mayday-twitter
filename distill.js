@@ -1,4 +1,5 @@
-// var moment = require("moment");
+var moment = require("moment");
+
 var locationBlacklist = [
   "47.603604,-122.337055"
 ];
@@ -9,7 +10,7 @@ var distill = function(tweet) {
   var parsed = {
     name: tweet.user.name,
     handle: tweet.user.screen_name,
-    timestamp: Date.now(),
+    timestamp: moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").unix(),
     tweet: tweet.text,
     id: tweet.id_str,
     avatar: tweet.user.profile_image_url,
