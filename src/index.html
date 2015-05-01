@@ -32,14 +32,20 @@ var now = Date.now();
           <% json.tweets.forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;
             var age = global.helpers.ages(tweet.timestamp, now);
+            var tags = tweet.tags.join(" ");
           %>
-          <map-marker class="tweet-marker <%= age %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
+          <map-marker class="tweet-marker <%= age %> <%= tags %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
             <%= t.include("_tweet.html", { data: tweet }) %>
           </map-marker>
           <% }); %>
         </leaflet-map>
         <div class="map-key">
-          <span class="dot"></span> Newest updates
+          <div>
+            <span class="recent dot"></span> Newest updates
+          </div>
+          <div>
+            <span class="video dot"></span> Video available
+          </div>
         </div>
         <ul class="stream">
           <% json.tweets.forEach(function(tweet) { %>

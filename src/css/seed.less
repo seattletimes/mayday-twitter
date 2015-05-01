@@ -129,6 +129,13 @@ leaflet-map {
       background: @twitter-gray;
       opacity: .4;
     }
+
+    &.video.recent {
+      text-align: center;
+      // z-index: 999 !important;
+      line-height: @size;
+      background: @df-blue;
+    }
   }
 
   .tweet {
@@ -168,6 +175,10 @@ leaflet-map {
     border-radius: 100%;
     margin-right: 8px;
     vertical-align: text-top;
+
+    &.video {
+      background: @df-blue;
+    }
   }
 }
 
