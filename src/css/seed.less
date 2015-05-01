@@ -62,9 +62,15 @@
     text-align: center;
     cursor: pointer;
     background: @df-light-gray;
+    text-transform: uppercase;
+    font-size: 16px;
+    color: @df-middle-gray;
 
     &.selected {
       background: white;
+      color: @df-off-black;
+      z-index: 9;
+      box-shadow: 0 0 10px rgba(0,0,0,.2)
     }
   }
 
