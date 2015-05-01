@@ -46,13 +46,20 @@ var insertTweet = function(tweet, callback) {
     values.push(serialized.indexOf(key) > -1 ? JSON.stringify(value || []) : value || "");
   });
   db.run(query, values, function(err) {
-    if (err) return console.log(err);
+    if (err) return console.error(err);
+    callback();
+  });
+};
+
+var deleteTweet = function(id, callback) {
+  db.run("DELETE FROM tweets WHERE id = ?", [id], function(err) {
+    if (err) console.error(err);
     callback();
   });
 };
 
 var getTweets = function(callback) {
-  db.all("SELECT * FROM tweets", function(err, result) {
+  db.all("SELECT * FROM tweets ORDER BY timestamp DESC;", function(err, result) {
     //if we got more results, requery first
     result = result || [];
     result.forEach(function(tweet) {
@@ -74,5 +81,6 @@ module.exports = {
     });
   },
   getTweets: getTweets,
-  insertTweet: insertTweet
+  insertTweet: insertTweet,
+  deleteTweet: deleteTweet
 };

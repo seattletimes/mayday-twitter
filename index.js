@@ -50,7 +50,7 @@ var dumpDB = function() {
       console.log("got more results, re-exporting");
       return dumpDB();
     }
-    json = JSON.stringify(result.reverse(), null, 2);
+    json = JSON.stringify(result, null, 2);
     if (!shell.test("-e", "data")) shell.mkdir("data");
     fs.writeFileSync("data/tweets.json", json);
     console.log("Completed file dump, building");
@@ -109,6 +109,9 @@ async.waterfall([
     }, function(stream) {
 
       stream.on("data", function(tweet) {
+        if (tweet.delete) {
+          return db.deleteTweet(tweet.delete.status.id_str, scheduleDump);
+        }
         var t = distill(tweet);
         if (t.tweet[0] == "@") return; //skip direct replies
         if (!t || follow.indexOf(t.handle) == -1) return; //skip retweets

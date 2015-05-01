@@ -51,7 +51,7 @@ var refresh = function() {
       var html = tweetTemplate(tweet);
       if (tweet.latlng.length) {
         //place a marker
-        var marker = L.marker(tweet.latlng.map(function(n) { return n + .001 }), {
+        var marker = L.marker(tweet.latlng, {
           icon: L.divIcon({
             className: "tweet-marker " + global.helpers.ages(tweet.timestamp),
             iconSize: null
