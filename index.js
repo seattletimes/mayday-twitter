@@ -30,7 +30,16 @@ var follow = [
   "jim_brunner",
   "deleon_times",
   "gina_cole_",
-  "sjgtimes"
+  "sjgtimes",
+  "sringman",
+  "deanrutz",
+  "bettinahansen",
+  "lindseywasson",
+  "laurenfrohne",
+  "kgcotterill",
+  "corinnechin",
+  "gawlowski",
+  "colindiltz"
 ];
 
 var dumpDB = function() {
