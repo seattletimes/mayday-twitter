@@ -22,7 +22,7 @@ var now = Date.now();
             Stream
           </div>
         </div>
-        <leaflet-map zoom=15 lat="47.6106" lng="-122.33179">
+        <leaflet-map zoom=12 lat="47.6006" lng="-122.33179">
           <tile-layer layer="cartoPositron"></tile-layer>
           <% json.tweets.forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;

@@ -32,6 +32,7 @@
 
   leaflet-map {
     .flex(2);
+    z-index: 99;
 
     @media @mobile {
       display: none;
@@ -44,6 +45,7 @@
 
   .stream {
     .flex(1);
+    z-index: 99;
 
     @media @mobile {
       display: none;
@@ -65,6 +67,9 @@
     text-transform: uppercase;
     font-size: 16px;
     color: @df-middle-gray;
+    .display-flex;
+    .flex-direction(column);
+    .justify-content(center);
 
     &.selected {
       background: white;
