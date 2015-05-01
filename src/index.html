@@ -23,6 +23,11 @@ var now = Date.now();
           </div>
         </div>
         <leaflet-map zoom=12 lat="47.6006" lng="-122.33179">
+          <map-options>
+{
+  "scrollWheelZoom": false
+}
+          </map-options>
           <tile-layer layer="cartoPositron"></tile-layer>
           <% json.tweets.forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;
