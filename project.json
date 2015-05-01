@@ -6,7 +6,7 @@
     },
     "live": {
       "bucket": "projects.seattletimes.com",
-      "path": "2015/mayday-map"
+      "path": "2015/local/mayday-map"
     }
   },
   "title": "",
