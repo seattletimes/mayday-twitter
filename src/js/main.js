@@ -2,6 +2,7 @@
 require("./lib/social");
 require("./lib/ads");
 require("component-leaflet-map");
+require("component-responsive-frame/child");
 
 var mapElement = document.querySelector("leaflet-map");
 var L = mapElement.leaflet;
