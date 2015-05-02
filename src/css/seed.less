@@ -127,12 +127,12 @@ leaflet-map {
     }
 
     &.old {
-      background: darken(@twitter-gray, 20%);
+      background: desaturate(@st-dark-red, 50%);
       opacity: .9;
     }
 
     &.older {
-      background: darken(@twitter-gray, 10%);
+      background: desaturate(@twitter-gray, 70%);
       opacity: .8;
     }
 
@@ -157,6 +157,14 @@ leaflet-map {
 
       &.young {
         background: lighten(desaturate(@df-blue, 50%), 5%);
+      }
+
+      &.old {
+        background: lighten(desaturate(@df-blue, 50%), 20%);
+      }
+
+      &.older {
+        background: lighten(desaturate(@df-blue, 50%), 30%);
       }
     }
   }
