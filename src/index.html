@@ -22,14 +22,14 @@ var now = Date.now();
             Stream
           </div>
         </div>
-        <leaflet-map zoom=14 lat="47.610387" lng="-122.329158">
+        <leaflet-map zoom=14 lat="47.61490053" lng="-122.32074737">
           <map-options>
 {
   "scrollWheelZoom": false
 }
           </map-options>
           <tile-layer layer="cartoPositron"></tile-layer>
-          <% json.tweets.forEach(function(tweet) {
+          <% json.tweets.slice().reverse().forEach(function(tweet) {
             if (!tweet.latlng || !tweet.latlng.length) return;
             var age = global.helpers.ages(tweet.timestamp, now);
             var tags = tweet.tags.join(" ").toLowerCase();

@@ -1,18 +1,18 @@
-module.exports = function(timestamp, now) {
-  now = now || Date.now();
+module.exports = function(timestamp) {
+  var now = new Date(2015, 4, 1, 23, 59).getTime(); //midnight on May 1
   var age = "recent";
   var minutes = 1000 * 60;
   var hours = 60 * minutes;
   var elapsed = now - timestamp;
-  if (elapsed > 8 * hours) {
+  if (elapsed > 16 * hours) {
     age = "ancient";
-  } else if (elapsed > 2 * hours) {
+  } else if (elapsed > 6 * hours) {
     age = "oldest";
-  } else if (elapsed > 1 * hours) {
+  } else if (elapsed > 4 * hours) {
     age = "older";
-  } else if (elapsed > 30 * minutes) {
+  } else if (elapsed > 3 * hours) {
     age = "old";
-  } else if (elapsed > 15 * minutes) {
+  } else if (elapsed > 2 * hours) {
     age = "young";
   }
   return age;

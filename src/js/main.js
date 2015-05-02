@@ -7,6 +7,22 @@ require("component-responsive-frame/child");
 var mapElement = document.querySelector("leaflet-map");
 var L = mapElement.leaflet;
 var map = mapElement.map;
+
+document.querySelector(".tabs").addEventListener("click", function(e) {
+  var target = e.target;
+  var tab = target.getAttribute("data-tab");
+  if (!tab) return;
+  var main = document.querySelector(".interactive");
+  main.classList.remove("stream", "map");
+  main.classList.add(tab);
+  document.querySelector(".tab.selected").classList.remove("selected");
+  target.classList.add("selected");
+  map.invalidateSize();
+});
+
+/*
+// no more need for live reload, let's cut some weight from the script
+
 var dot = require("dot");
 dot.templateSettings.varname = "data";
 dot.templateSettings.selfcontained = true;
@@ -70,14 +86,4 @@ var refresh = function() {
 
 setTimeout(refresh, 15 * 1000);
 
-document.querySelector(".tabs").addEventListener("click", function(e) {
-  var target = e.target;
-  var tab = target.getAttribute("data-tab");
-  if (!tab) return;
-  var main = document.querySelector(".interactive");
-  main.classList.remove("stream", "map");
-  main.classList.add(tab);
-  document.querySelector(".tab.selected").classList.remove("selected");
-  target.classList.add("selected");
-  map.invalidateSize();
-});
+*/

@@ -126,26 +126,31 @@ leaflet-map {
     &.recent {
       background: darken(@st-dark-red, 15%);
       opacity: 1;
+      z-index: 99999 !important;
     }
 
     &.young {
       background: desaturate(@st-dark-red, 10%);
       opacity: 1;
+      z-index: 9999 !important;
     }
 
     &.old {
-      background: desaturate(@st-dark-red, 50%);
+      background: desaturate(@st-dark-red, 20%);
       opacity: .9;
+      z-index: 999 !important;
     }
 
     &.older {
-      background: desaturate(@twitter-gray, 70%);
+      background: desaturate(@st-dark-red, 30%);
       opacity: .8;
+      z-index: 99 !important;
     }
 
     &.oldest {
       background: @twitter-gray;
       opacity: .7;
+      z-index: 9 !important;
     }
 
     &.ancient {
@@ -160,18 +165,22 @@ leaflet-map {
 
       &.recent {
         background: @df-blue;
+        z-index: 100000 !important;
       }
 
       &.young {
         background: lighten(desaturate(@df-blue, 50%), 5%);
+        z-index: 10000 !important;
       }
 
       &.old {
         background: lighten(desaturate(@df-blue, 50%), 20%);
+        z-index: 1000 !important;
       }
 
       &.older {
         background: lighten(desaturate(@df-blue, 50%), 30%);
+        z-index: 100 !important;
       }
     }
   }
