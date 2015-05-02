@@ -22,7 +22,7 @@
   </p>
   <% if (data.media.length) data.media.forEach(function(image) { var url = data.urls[0]; %>
     <a href="<%= url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id %>" target="_new">
-      <img src="<%= image.url %>">
+      <img src="<%= image.url %>" class="embedded">
     </a>
   <% }); %>
   <p class="hashtags">
