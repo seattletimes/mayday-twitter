@@ -7,4 +7,3 @@ npm-debug.log
 src/js/lib/*/**
 # json/*.sheet.json
 tweets.db
-data/tweets.json
