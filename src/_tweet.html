@@ -5,7 +5,7 @@
   <a href="https://twitter.com/<%= data.handle %>/status/<%= data.id %>"
     class="timestamp" data-time="<%= data.timestamp %>" 
     target="_new">
-    <%= global.helpers.moment(data.timestamp * 1).fromNow() %>
+    <%= global.helpers.moment(data.timestamp * 1).format("dddd, MMMM Do YYYY, h:mm a") %>
   </a>
   <p class="text">
     <%
