@@ -99,9 +99,24 @@ ul.stream {
     border: 1px solid @df-border-gray;
     border-bottom: none;
 
+    &.video .media {
+      position: relative;
+      display: block;
+
+      &::after {
+        position: absolute;
+        content: url("./assets/play.svg");
+        display: block;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+      }
+    }
+
     img.embedded {
       max-width: 100%;
-      max-height: 300px;
+      max-height: 200px;
       display: block;
       margin: auto;
     }
@@ -289,15 +304,20 @@ leaflet-map {
   }
 
   .jump {
-    display: inline-block;
+    display: block;
     background: white;
     border: 1px solid @twitter-gray;
     color: @twitter-gray;
     cursor: pointer;
-    padding: 4px 8px;
+    padding: 4px;
     float: right;
     clear: right;
     border-radius: 4px;
+    margin-left: 8px;
+
+    .icon {
+      display: block;
+    }
   }
 
   .text {

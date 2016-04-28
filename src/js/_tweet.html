@@ -1,4 +1,5 @@
-<div class="tweet">
+<% var hasVideo = !!data.tags.join().match(/video/i); %>
+<div class="tweet <%= hasVideo ? "video" : "" %>">
   <img class="avatar" src="<%= data.avatar %>">
   <a href="https://twitter.com/<%= data.handle %>" class="follow" target="_new">@<%= data.handle %></a>
   <a href="https://twitter.com/<%= data.handle %>" class="name" target="_new"><%= data.name %></a>
@@ -8,7 +9,9 @@
     <%= window.moment(data.timestamp * 1).fromNow() %>
   </a>
   <% if (data.latlng.length) { %>
-  <a class="jump" data-marker="<%= data.id %>">&#128205;</a>
+  <a class="jump" data-marker="<%= data.id %>">
+    <img src="./assets/pin.svg" class="icon">
+  </a>
   <% } %>
   <p class="text">
     <%
@@ -24,7 +27,7 @@
     <%= text %>
   </p>
   <% if (data.media.length) data.media.forEach(function(image) { var url = data.urls[0]; %>
-    <a href="<%= url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id %>" target="_new">
+    <a class="media" href="<%= url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id %>" target="_new">
       <img src="<%= image.url %>" class="embedded">
     </a>
   <% }); %>
