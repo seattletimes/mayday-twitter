@@ -1,12 +1,15 @@
 <div class="tweet">
   <img class="avatar" src="<%= data.avatar %>">
-  <a href="https://twitter.com/<%= data.handle %>" class="follow" target="_new">Follow @<%= data.handle %></a>
+  <a href="https://twitter.com/<%= data.handle %>" class="follow" target="_new">@<%= data.handle %></a>
   <a href="https://twitter.com/<%= data.handle %>" class="name" target="_new"><%= data.name %></a>
   <a href="https://twitter.com/<%= data.handle %>/status/<%= data.id %>"
     class="timestamp" data-time="<%= data.timestamp %>" 
     target="_new">
-    <%= window.moment(data.timestamp * 1).format("dddd, MMMM Do YYYY, h:mm a") %>
+    <%= window.moment(data.timestamp * 1).fromNow() %>
   </a>
+  <% if (data.latlng.length) { %>
+  <a class="jump" data-marker="<%= data.id %>">&#128205;</a>
+  <% } %>
   <p class="text">
     <%
       var text = data.tweet;

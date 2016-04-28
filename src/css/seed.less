@@ -123,11 +123,6 @@ leaflet-map {
     background: black;
     opacity: .7;
 
-    &:hover {
-      z-index: 999 !important;
-      opacity: 1 !important;
-    }
-
     &.recent {
       background: darken(@st-dark-red, 15%);
       opacity: 1;
@@ -188,6 +183,11 @@ leaflet-map {
         z-index: 100 !important;
       }
     }
+
+    &:hover, &.focused {
+      z-index: 999 !important;
+      opacity: 1 !important;
+    }
   }
 
   .tweet {
@@ -197,6 +197,10 @@ leaflet-map {
     }
 
     .follow {
+      display: none;
+    }
+
+    .jump {
       display: none;
     }
   }
@@ -282,6 +286,18 @@ leaflet-map {
       color: @df-off-white;
       text-decoration: none;
     }
+  }
+
+  .jump {
+    display: inline-block;
+    background: white;
+    border: 1px solid @twitter-gray;
+    color: @twitter-gray;
+    cursor: pointer;
+    padding: 4px 8px;
+    float: right;
+    clear: right;
+    border-radius: 4px;
   }
 
   .text {

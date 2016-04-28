@@ -1,8 +1,9 @@
 //Use CommonJS style via browserify to load other modules
-require("./lib/social");
-require("./lib/ads");
 require("component-leaflet-map");
 require("component-responsive-frame/child");
+
+var closest = require("./lib/closest");
+var xhr = require("./lib/xhr");
 
 var mapElement = document.querySelector("leaflet-map");
 var L = mapElement.leaflet;
@@ -11,28 +12,45 @@ var map = mapElement.map;
 var dot = require("./lib/dot");
 var tweetTemplate = dot.template(require("./_tweet.html"));
 //helpers for the template
-window.moment = require("moment");
+var moment = window.moment = require("moment");
 var ages = require("./ages");
+var stream = document.querySelector("ul.stream");
 
 var markers = [];
+var panelHTML = [];
+var markerMapping = {};
+var latest = null;
+
+var makeMarker = function(data) {
+  var marker = L.marker(data.latlng, {
+    icon: L.divIcon({
+      className: `tweet-marker ${ages(data.timestamp)} ${data.tags.join(" ")}`,
+      iconSize: null
+    })
+  });
+  markerMapping[data.id] = marker;
+  return marker;
+};
 
 //add the initial markers from the map data
 window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
+  var html = tweetTemplate(t);
   if (t.latlng.length) {
     var ageClass = ages(t.timestamp);
-    var marker = L.marker(t.latlng, {
-      icon: L.divIcon({
-        className: "leaflet-div-icon tweet-marker " + ageClass
-      })
-    });
-    marker.bindPopup(tweetTemplate(t));
-    marker.addTo(map);
+    var marker = makeMarker(t);
+    marker.bindPopup(html);
     markers.push(marker);
+    marker.addTo(map);
   }
+  panelHTML.push(`<li class="item">${html}</li>`);
+  latest = t.timestamp;
 });
 
+stream.innerHTML = panelHTML.reverse().join("");
+
 var markerGroup = L.featureGroup(markers);
-map.fitBounds(markerGroup.getBounds())
+map.fitBounds(markerGroup.getBounds());
+console.log(markerMapping);
 
 document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;
@@ -46,48 +64,41 @@ document.querySelector(".tabs").addEventListener("click", function(e) {
   map.invalidateSize();
 });
 
-
-var getTweets = function(c) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("GET", "./tweets.json?_=" + Date.now());
-  xhr.onload = function() {
-    c(JSON.parse(xhr.responseText));
-  };
-  xhr.send();
-}
+stream.addEventListener("click", function(e) {
+  var link = closest(e.target, "[data-marker]");
+  if (!link) return;
+  var id = link.getAttribute("data-marker");
+  var marker = markerMapping[id];
+  if (!marker) return;
+  map.setView(marker.getLatLng(), 16);
+  marker.openPopup();
+});
 
 var refresh = function() {
-  //process all the timestamps
+  //re-process all the timestamps
   var times = document.querySelectorAll(".stream .timestamp");
   for (var i = 0; i < times.length; i++) {
     var time = times[i];
-    time.innerHTML = global.helpers.moment(time.getAttribute("data-time") * 1).fromNow();
+    time.innerHTML = moment(time.getAttribute("data-time") * 1).fromNow();
   }
-  getTweets(function(data) {
-    var tweets = data.filter(function(item) {
-      return item.timestamp > config.time;
-    });
+  xhr("./tweets.json?_=" + Date.now(), function(err, data) {
+    if (err) console.log(err);
+    var tweets = data.filter(item => item.timestamp > latest);
     // tweets = data;
     if (!tweets.length) return;
     //update for next sync
-    config.time = tweets[0].timestamp;
+    latest = tweets[0].timestamp;
     var list = "";
-    var stream = document.querySelector("ul.stream");
     var last = stream.querySelector("li");
     tweets.forEach(function(tweet) {
       var html = tweetTemplate(tweet);
+      var li = document.createElement("li");
       if (tweet.latlng.length) {
-        var marker = L.marker(tweet.latlng, {
-          icon: L.divIcon({
-            className: "tweet-marker " + global.helpers.ages(tweet.timestamp) + " " + tweet.tags.join(" ").toLowerCase(),
-            iconSize: null
-          })
-        });
+        var marker = makeMarker(tweet);
         marker.bindPopup(html);
         marker.addTo(map);
       }
-      var li = document.createElement("li");
-      li.innerHTML = html;
+      li.innerHTML = `${html}`;
       stream.insertBefore(li, last);
     })
   });

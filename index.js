@@ -16,30 +16,19 @@ var client = new Twitter({
 
 var publish = "grunt template publish:live";
 
-var follow = [
-  "seattlesullivan",
-  "pgcornwell",
-  "seaclarridge",
-  "stevemiletich",
-  "stimesmcarter",
-  "katherinelong",
-  "evanbush",
-  "eriklacitis",
-  "jbroomseattle",
-  "mikelindblom",
-  "jim_brunner",
-  "deleon_times",
-  "gina_cole_",
-  "sjgtimes",
-  "sringman",
-  "deanrutz",
-  "bettinahansen",
-  "lindseywasson",
-  "laurenfrohne",
-  "kgcotterill",
-  "corinnechin",
-  "gawlowski",
-  "colindiltz"
+var follow = ["stevemiletich",
+//"SeaTimesFotoKen",
+"stimesmcarter",
+"katherinelong",
+"evanbush",
+"deleon_times",
+"sjgtimes",
+"lthompsontimes",
+"lewiskamb",
+"sringman",
+"bettinahansen",
+"lindseywasson",
+"corinnechin"
 ];
 
 var dumpDB = function() {
