@@ -22,22 +22,9 @@ var now = Date.now();
             Stream
           </div>
         </div>
-        <leaflet-map zoom=14 lat="47.61490053" lng="-122.32074737">
-          <map-options>
-{
-  "scrollWheelZoom": false
-}
-          </map-options>
+        <leaflet-map lat="47.61490053" lng="-122.32074737">
+          <map-options> { "scrollWheelZoom": false } </map-options>
           <tile-layer layer="cartoPositron"></tile-layer>
-          <% json.tweets.slice().reverse().forEach(function(tweet) {
-            if (!tweet.latlng || !tweet.latlng.length) return;
-            var age = global.helpers.ages(tweet.timestamp, now);
-            var tags = tweet.tags.join(" ").toLowerCase();
-          %>
-          <map-marker class="tweet-marker <%= age %> <%= tags %>" lat="<%= tweet.latlng[0] %>" lng="<%= tweet.latlng[1] %>">
-            <%= t.include("_tweet.html", { data: tweet }) %>
-          </map-marker>
-          <% }); %>
         </leaflet-map>
         <div class="map-key">
           <div>
@@ -47,18 +34,11 @@ var now = Date.now();
             <span class="video dot"></span> Newest videos
           </div>
         </div>
-        <ul class="stream">
-          <% json.tweets.forEach(function(tweet) { %>
-          <li> <%= t.include("_tweet.html", { data: tweet }) %>
-          <% }) %>
-        </ul>
       </main>
     </responsive-child>
 
     <script>
-var config = <%= JSON.stringify({
-  time: json.tweets.length ? json.tweets[0].timestamp : 0
-}, null, 2) %>;
+window.mayday = <%= JSON.stringify(json.tweets) %>;
     </script>
     <script src="app.js"></script>
     <% if (json.project.production) { %>

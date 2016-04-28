@@ -8,6 +8,11 @@
 @import "seattletimes";
 @import "flexbox";
 
+leaflet-map:not([ready]) {
+  opacity: 0;
+  overflow: hidden;
+}
+
 .interactive {
   .display-flex;
   height: 600px;

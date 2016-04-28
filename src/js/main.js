@@ -8,6 +8,32 @@ var mapElement = document.querySelector("leaflet-map");
 var L = mapElement.leaflet;
 var map = mapElement.map;
 
+var dot = require("./lib/dot");
+var tweetTemplate = dot.template(require("./_tweet.html"));
+//helpers for the template
+window.moment = require("moment");
+var ages = require("./ages");
+
+var markers = [];
+
+//add the initial markers from the map data
+window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
+  if (t.latlng.length) {
+    var ageClass = ages(t.timestamp);
+    var marker = L.marker(t.latlng, {
+      icon: L.divIcon({
+        className: "leaflet-div-icon tweet-marker " + ageClass
+      })
+    });
+    marker.bindPopup(tweetTemplate(t));
+    marker.addTo(map);
+    markers.push(marker);
+  }
+});
+
+var markerGroup = L.featureGroup(markers);
+map.fitBounds(markerGroup.getBounds())
+
 document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;
   var tab = target.getAttribute("data-tab");
@@ -20,22 +46,6 @@ document.querySelector(".tabs").addEventListener("click", function(e) {
   map.invalidateSize();
 });
 
-/*
-// no more need for live reload, let's cut some weight from the script
-
-var dot = require("dot");
-dot.templateSettings.varname = "data";
-dot.templateSettings.selfcontained = true;
-dot.templateSettings.evaluate = /<%([\s\S]+?)%>/g;
-dot.templateSettings.interpolate = /<%=([\s\S]+?)%>/g;
-
-window.global = window;
-global.helpers = {
-  moment: require("moment"),
-  ages: require("./ages")
-}
-
-var tweetTemplate = dot.template(require("../_tweet.html"));
 
 var getTweets = function(c) {
   var xhr = new XMLHttpRequest();
@@ -85,5 +95,3 @@ var refresh = function() {
 };
 
 setTimeout(refresh, 15 * 1000);
-
-*/
