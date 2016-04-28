@@ -39,7 +39,7 @@ var now = Date.now();
     </responsive-child>
 
     <script>
-window.mayday = <%= JSON.stringify(json.tweets.slice(100)) %>;
+window.mayday = <%= JSON.stringify(json.tweets) %>;
     </script>
     <script src="app.js"></script>
     <% if (json.project.production) { %>

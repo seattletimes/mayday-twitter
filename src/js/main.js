@@ -50,7 +50,6 @@ stream.innerHTML = panelHTML.reverse().join("");
 
 var markerGroup = L.featureGroup(markers);
 map.fitBounds(markerGroup.getBounds());
-console.log(markerMapping);
 
 document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;
@@ -85,6 +84,7 @@ var refresh = function() {
     if (err) console.log(err);
     var tweets = data.filter(item => item.timestamp > latest);
     // tweets = data;
+    console.log(`Updating with ${tweets.length} tweets`);
     if (!tweets.length) return;
     //update for next sync
     latest = tweets[0].timestamp;

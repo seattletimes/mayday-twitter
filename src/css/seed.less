@@ -122,14 +122,14 @@ ul.stream {
     }
 
     .text {
-      font-size: 16px;
+      font-size: 14px;
     }
   }
 }
 
 leaflet-map {
   .tweet-marker {
-    @size: 16px;
+    @size: 12px;
     width: @size;
     height: @size;
     margin-top: -@size / 2;
@@ -255,6 +255,8 @@ leaflet-map {
 
 .tweet {
   overflow: hidden;
+  font-family: @df-sans;
+  font-size: 14px;
 
   .shy {
     display: inline-block;
@@ -277,6 +279,8 @@ leaflet-map {
 
   .name {
     color: @df-off-black;
+    font-family: @df-serif;
+    font-size: 16px;
   }
 
   .timestamp {
@@ -290,11 +294,12 @@ leaflet-map {
     background: @twitter-gray;
     transition: background 0.2s linear;
     color: @df-off-white;
-    font-size: 11px;
+    font-size: 12px;
     font-family: @df-sans;
     text-transform: uppercase;
-    padding: 2px 4px;
+    padding: 4px;
     float: right;
+    border-radius: 4px;
 
     &:hover {
       background: @df-blue;
