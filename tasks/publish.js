@@ -20,7 +20,7 @@ var formatSize = function(input) {
   return input + "B";
 };
 
-var gzippable = ["js", "html", "json", "map", "css", "txt"];
+var gzippable = ["js", "html", "json", "map", "css", "txt", "csv", "svg", "geojson"];
 
 module.exports = function(grunt) {
 
@@ -80,9 +80,18 @@ module.exports = function(grunt) {
     }
 
     var bucketConfig = config.s3[deploy];
+    //strip slashes for safety
+    bucketConfig.path = bucketConfig.path.replace(/^\/|\/$/g, "");
 
-    var creds = require("../auth.json");
-    aws.config.update(creds.s3);
+    var creds = {
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      region: process.env.AWS_DEFAULT_REGION
+    };
+    if (!creds.accessKeyId) {
+      creds = require("../auth.json").s3;
+    }
+    aws.config.update(creds);
 
     var s3 = new aws.S3();
     s3.createBucket({
@@ -99,7 +108,7 @@ module.exports = function(grunt) {
           Body: upload.buffer,
           ACL: "public-read",
           ContentType: mime.lookup(upload.path),
-          CacheControl: "public,max-age=3000"
+          CacheControl: "public,max-age=300"
         };
         //if this matches GZip support, compress them before uploading to S3
         var extension = upload.path.split(".").pop();
@@ -111,7 +120,7 @@ module.exports = function(grunt) {
               var after = zipped.length;
               obj.ContentEncoding = "gzip";
               console.log("Uploading gzipped %s - %s %s %s (%s)",
-                upload.path,
+                obj.Key,
 
                 chalk.cyan(formatSize(before)),
                 chalk.yellow("=>"),
