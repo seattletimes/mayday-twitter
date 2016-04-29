@@ -30,6 +30,7 @@ leaflet-map:not([ready]) {
 
   @media @mobile {
     height: 400px;
+    .flex-direction(column);
   }
 
   leaflet-map {
@@ -48,6 +49,10 @@ leaflet-map:not([ready]) {
   .stream {
     .flex(1);
     z-index: 99;
+
+    @media @tablet {
+      .flex(2);
+    }
 
     @media @mobile {
       display: none;
