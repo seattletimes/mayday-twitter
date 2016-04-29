@@ -48,8 +48,10 @@ window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
 
 stream.innerHTML = panelHTML.reverse().join("");
 
-var markerGroup = L.featureGroup(markers);
-map.fitBounds(markerGroup.getBounds());
+if (markers.length) {
+  var markerGroup = L.featureGroup(markers);
+  map.fitBounds(markerGroup.getBounds());
+}
 
 document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;

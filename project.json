@@ -1,7 +1,7 @@
 {
   "s3": {
     "stage": {
-      "bucket": "apps-stage.seattletimesdata.com",
+      "bucket": "projects-staging.seattletimes.com",
       "path": "antagonistic-stabilisation"
     },
     "live": {
