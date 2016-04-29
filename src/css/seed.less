@@ -28,10 +28,6 @@ leaflet-map:not([ready]) {
     }
   }
 
-  @media @tablet {
-    .flex-direction(column);
-  }
-
   @media @mobile {
     height: 400px;
   }
@@ -217,6 +213,14 @@ leaflet-map {
 
     .jump {
       display: none;
+    }
+
+    @media @mobile {
+      .embedded {
+        max-height: 100px;
+        margin: auto;
+        display: block;
+      }
     }
   }
 }

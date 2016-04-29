@@ -15,6 +15,7 @@ var tweetTemplate = dot.template(require("./_tweet.html"));
 var moment = window.moment = require("moment");
 var ages = require("./ages");
 var stream = document.querySelector("ul.stream");
+var main = document.querySelector(".interactive");
 
 var markers = [];
 var panelHTML = [];
@@ -57,7 +58,6 @@ document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;
   var tab = target.getAttribute("data-tab");
   if (!tab) return;
-  var main = document.querySelector(".interactive");
   main.classList.remove("stream", "map");
   main.classList.add(tab);
   document.querySelector(".tab.selected").classList.remove("selected");
@@ -71,7 +71,12 @@ stream.addEventListener("click", function(e) {
   var id = link.getAttribute("data-marker");
   var marker = markerMapping[id];
   if (!marker) return;
-  map.setView(marker.getLatLng(), 16);
+  main.classList.remove("stream");
+  main.classList.add("map");
+  map.invalidateSize();
+  document.querySelector(".tab.selected").classList.remove("selected");
+  document.querySelector(`.tab[data-tab="map"]`).classList.add("selected");
+  map.setView(marker.getLatLng(), 17);
   marker.openPopup();
 });
 
