@@ -52,10 +52,13 @@ var dumpDB = function() {
   })
 };
 
+var today = new Date();
+
 var rejectTweet = function(t) {
   if (t.tweet[0] == "@") return true; //skip direct replies
   if (!t || follow.indexOf(t.handle) == -1) return true; //skip retweets
   if (t.tweet.indexOf("RT") == 0) return true; //skip retweets
+  if (t.date.getFullYear() < today.getFullYear()) return true; //skip very old tweets
 }
 
 var inProgress = false;

@@ -7,10 +7,12 @@ var locationBlacklist = [
 var distill = function(tweet) {
   if (!tweet.user) return null;
   // console.log(tweet);
+  var timestamp = moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").toDate();
   var parsed = {
     name: tweet.user.name,
     handle: tweet.user.screen_name,
-    timestamp: moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").valueOf(),
+    timestamp: timestamp.getTime(),
+    date: timestamp,
     tweet: tweet.text,
     id: tweet.id_str,
     avatar: tweet.user.profile_image_url,
