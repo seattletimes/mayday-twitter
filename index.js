@@ -17,18 +17,18 @@ var client = new Twitter({
 var publish = "grunt template publish:live";
 
 var follow = ["stevemiletich",
-//"SeaTimesFotoKen",
-"stimesmcarter",
-"katherinelong",
-"evanbush",
-"deleon_times",
-"sjgtimes",
-"lthompsontimes",
-"lewiskamb",
-"sringman",
-"bettinahansen",
-"lindseywasson",
-"corinnechin"
+  //"SeaTimesFotoKen",
+  "stimesmcarter",
+  "katherinelong",
+  "evanbush",
+  "deleon_times",
+  "sjgtimes",
+  "lthompsontimes",
+  "lewiskamb",
+  "sringman",
+  "bettinahansen",
+  "lindseywasson",
+  "corinnechin"
 ];
 
 var dumpDB = function() {
@@ -58,7 +58,7 @@ var rejectTweet = function(t) {
   if (t.tweet[0] == "@") return true; //skip direct replies
   if (!t || follow.indexOf(t.handle) == -1) return true; //skip retweets
   if (t.tweet.indexOf("RT") == 0) return true; //skip retweets
-  if (t.date.getFullYear() < today.getFullYear()) return true; //skip very old tweets
+  if (t.date.getMonth() < today.getMonth() || t.date.getFullYear() < today.getFullYear()) return true; //skip very old tweets
 }
 
 var inProgress = false;
