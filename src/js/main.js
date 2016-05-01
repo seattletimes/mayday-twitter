@@ -25,7 +25,7 @@ var latest = null;
 var makeMarker = function(data) {
   var marker = L.marker(data.latlng, {
     icon: L.divIcon({
-      className: `tweet-marker ${ages(data.timestamp)} ${data.tags.join(" ")}`,
+      className: `tweet-marker ${ages(data.timestamp)} ${data.tags.join(" ").toLowerCase()}`,
       iconSize: null
     })
   });

@@ -17,7 +17,7 @@ var client = new Twitter({
 var publish = "grunt template publish:live";
 
 var follow = ["stevemiletich",
-  //"SeaTimesFotoKen",
+  "SeaTimesFotoKen",
   "stimesmcarter",
   "katherinelong",
   "evanbush",
@@ -102,7 +102,7 @@ async.waterfall([
     async.each(ids, function(id, c) {
       client.get("statuses/user_timeline", {
         user_id: id,
-        count: 3
+        count: 20
       }, function(err, data) {
         if (err) return c(err);
         async.each(data, function(tweet, done) {
