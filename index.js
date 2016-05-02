@@ -28,7 +28,8 @@ var follow = ["stevemiletich",
   "sringman",
   "bettinahansen",
   "lindseywasson",
-  "corinnechin"
+  "corinnechin",
+  "eriklacitis"
 ];
 
 var dumpDB = function() {
@@ -102,7 +103,7 @@ async.waterfall([
     async.each(ids, function(id, c) {
       client.get("statuses/user_timeline", {
         user_id: id,
-        count: 20
+        count: 100
       }, function(err, data) {
         if (err) return c(err);
         async.each(data, function(tweet, done) {
