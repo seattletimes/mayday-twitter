@@ -1,5 +1,8 @@
+var moment = require("moment");
+
 module.exports = function(timestamp) {
-  var now = new Date().getTime(2016, 6, 1, 23, 59); //midnight on May 1
+  var now = new moment("2016-05-01 23:59pm -8:00", "YYYY-MM-DD HH:mma z");
+  now = now.valueOf();
   var age = "recent";
   var minutes = 1000 * 60;
   var hours = 60 * minutes;
