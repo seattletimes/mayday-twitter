@@ -7,11 +7,12 @@ Runs tasks on an automated basis
 /** config variables **/
 
 var branch = "prod"; //Git branch for deployment
-var interval = 1000 * 3; //30 minutes by default
+var interval = 1000 * 60 * 3; //30 minutes by default
 var commands = [
-  "git checkout " + branch,
+  "git checkout " + branch, //grab latest
   "git pull origin " + branch,
-  "grunt sheets static publish:live"
+  "npm i", //install any new packages
+  "grunt sheets static publish:live" //deploy
 ];
 
 /** end config **/
@@ -47,7 +48,7 @@ var cron = function() {
 
 module.exports = function(grunt) {
 
-  grunt.registerTask("cron", function() {
+  grunt.registerTask("cron", "Run the build on a timer", function() {
     //never completes!
     this.async();
 

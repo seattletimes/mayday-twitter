@@ -82,14 +82,17 @@ module.exports = function(grunt) {
     var bucketConfig = config.s3[deploy];
     //strip slashes for safety
     bucketConfig.path = bucketConfig.path.replace(/^\/|\/$/g, "");
+    if (!bucketConfig.path) {
+      grunt.fail.fatal("You must specify a destination path in your project.json.");
+    }
 
     var creds = {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      region: process.env.AWS_DEFAULT_REGION
+      region: process.env.AWS_DEFAULT_REGION || "us-west-1"
     };
     if (!creds.accessKeyId) {
-      creds = require("../auth.json").s3;
+      grunt.fail.fatal("Missing AWS configuration variables.")
     }
     aws.config.update(creds);
 
@@ -108,7 +111,7 @@ module.exports = function(grunt) {
           Body: upload.buffer,
           ACL: "public-read",
           ContentType: mime.lookup(upload.path),
-          CacheControl: "public,max-age=0,no-cache"
+          CacheControl: "public,max-age=300"
         };
         //if this matches GZip support, compress them before uploading to S3
         var extension = upload.path.split(".").pop();
