@@ -14,9 +14,10 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
-var publish = "grunt template";
+var publish = "echo PUBLISH"; //"grunt template publish:live";
 
-var follow = ["stevemiletich",
+var follow = [
+  "stevemiletich",
   "SeaTimesFotoKen",
   "stimesmcarter",
   "katherinelong",
@@ -27,9 +28,9 @@ var follow = ["stevemiletich",
   "lewiskamb",
   "sringman",
   "bettinahansen",
-  "lindseywasson",
   "corinnechin",
-  "eriklacitis"
+  "eriklacitis",
+  "susankelleher"
 ];
 
 var dumpDB = function() {

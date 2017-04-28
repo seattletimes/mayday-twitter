@@ -2,7 +2,7 @@
   "s3": {
     "stage": {
       "bucket": "projects-staging.seattletimes.com",
-      "path": "antagonistic-stabilisation"
+      "path": "insubordinate-bolshevik"
     },
     "live": {
       "bucket": "projects.seattletimes.com",
