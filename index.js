@@ -49,6 +49,7 @@ var dumpDB = function() {
     json = JSON.stringify(result, null, 2);
     if (!shell.test("-e", "data")) shell.mkdir("data");
     fs.writeFileSync("build/tweets.json", json);
+    fs.writeFileSync("data/tweets.json", json);
     console.log("Completed file dump, building");
     shell.exec(publish, function() {
       inProgress = false;
@@ -68,7 +69,7 @@ var rejectTweet = function(t) {
   if (t.date.getMonth() < today.getMonth() || t.date.getFullYear() < today.getFullYear()) return true; //skip very old tweets
   //CNC tweets
   if (t.handle.toLowerCase() == "thomaswilburn") {
-    if (tweet.text.toLowerCase().indexOf("killserver") > -1) {
+    if (t.tweet.toLowerCase().indexOf("killserver") > -1) {
       process.exit();
     }
     return true;
