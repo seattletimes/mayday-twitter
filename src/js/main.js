@@ -18,6 +18,7 @@ var stream = document.querySelector("ul.stream");
 var main = document.querySelector(".interactive");
 
 var markers = [];
+var markerGroup = L.featureGroup();
 var panelHTML = [];
 var markerMapping = {};
 var latest = null;
@@ -41,7 +42,7 @@ window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
     var marker = makeMarker(t);
     marker.bindPopup(html);
     markers.push(marker);
-    marker.addTo(map);
+    marker.addTo(markerGroup);
   }
   panelHTML.push(`<li class="item">${html}</li>`);
   latest = t.timestamp;
@@ -50,7 +51,6 @@ window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
 stream.innerHTML = panelHTML.reverse().join("");
 
 if (markers.length) {
-  var markerGroup = L.featureGroup(markers);
   map.fitBounds(markerGroup.getBounds());
 }
 
@@ -103,7 +103,8 @@ var refresh = function() {
       if (tweet.latlng.length) {
         var marker = makeMarker(tweet);
         marker.bindPopup(html);
-        marker.addTo(map);
+        marker.addTo(markerGroup);
+        map.fitBounds(markerGroup.getBounds());
       }
       li.innerHTML = `${html}`;
       stream.insertBefore(li, last);
