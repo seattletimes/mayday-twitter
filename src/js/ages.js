@@ -11,11 +11,11 @@ module.exports = function(timestamp) {
     age = "ancient";
   } else if (elapsed > 10 * hours) {
     age = "oldest";
-  } else if (elapsed > 6 * hours) {
-    age = "older";
   } else if (elapsed > 4 * hours) {
+    age = "older";
+  } else if (elapsed > 1 * hours) {
     age = "old";
-  } else if (elapsed > 2 * hours) {
+  } else if (elapsed > 10 * minutes) {
     age = "young";
   }
   return age;
