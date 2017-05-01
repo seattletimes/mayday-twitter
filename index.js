@@ -14,9 +14,11 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
-var publish = "echo PUBLISH"; //"grunt template publish:live";
+var publish = "grunt template publish:live";
 
 var follow = [
+  "potreporter",
+  "jessleeST",
   "stevemiletich",
   "SeaTimesFotoKen",
   "stimesmcarter",
@@ -28,9 +30,12 @@ var follow = [
   "lewiskamb",
   "sringman",
   "bettinahansen",
+  "erikajschultz",
   "corinnechin",
   "eriklacitis",
-  "susankelleher"
+  "susankelleher",
+  "c_clarridge",
+  "thomaswilburn"
 ];
 
 var dumpDB = function() {
@@ -43,7 +48,7 @@ var dumpDB = function() {
     }
     json = JSON.stringify(result, null, 2);
     if (!shell.test("-e", "data")) shell.mkdir("data");
-    fs.writeFileSync("data/tweets.json", json);
+    fs.writeFileSync("build/tweets.json", json);
     console.log("Completed file dump, building");
     shell.exec(publish, function() {
       inProgress = false;
@@ -61,6 +66,13 @@ var rejectTweet = function(t) {
   if (!t || follow.indexOf(t.handle) == -1) return true; //skip retweets
   if (t.tweet.indexOf("RT") == 0) return true; //skip retweets
   if (t.date.getMonth() < today.getMonth() || t.date.getFullYear() < today.getFullYear()) return true; //skip very old tweets
+  //CNC tweets
+  if (t.handle.toLowerCase() == "thomaswilburn") {
+    if (tweet.text.toLowerCase().indexOf("killserver") > -1) {
+      process.exit();
+    }
+    return true;
+  }
 }
 
 var inProgress = false;
