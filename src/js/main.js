@@ -19,6 +19,7 @@ var main = document.querySelector(".interactive");
 
 var markers = [];
 var markerGroup = L.featureGroup();
+markerGroup.addTo(map);
 var panelHTML = [];
 var markerMapping = {};
 var latest = null;

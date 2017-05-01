@@ -14,7 +14,7 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
-var publish = "grunt template publish:live";
+var publish = "grunt bundle less template publish:live";
 
 var follow = [
   "potreporter",
@@ -26,7 +26,7 @@ var follow = [
   "evanbush",
   "deleon_times",
   "sjgtimes",
-  "lthompsontimes",
+  // "lthompsontimes",
   "lewiskamb",
   "sringman",
   "bettinahansen",
@@ -35,7 +35,9 @@ var follow = [
   "eriklacitis",
   "susankelleher",
   "c_clarridge",
-  "thomaswilburn"
+  "thomaswilburn", // only for control purposes
+  "ellenbanner1",
+  "vernalcoleman"
 ];
 
 var dumpDB = function() {
