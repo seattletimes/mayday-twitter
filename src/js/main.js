@@ -36,7 +36,7 @@ var makeMarker = function(data) {
 };
 
 //add the initial markers from the map data
-window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
+/*window.mayday.sort((a, b) => a.timestamp - b.timestamp).forEach(function(t) {
   var html = tweetTemplate(t);
   if (t.latlng.length) {
     var ageClass = ages(t.timestamp);
@@ -54,6 +54,7 @@ stream.innerHTML = panelHTML.reverse().join("");
 if (markers.length) {
   map.fitBounds(markerGroup.getBounds());
 }
+*/
 
 document.querySelector(".tabs").addEventListener("click", function(e) {
   var target = e.target;
@@ -114,4 +115,4 @@ var refresh = function() {
   setTimeout(refresh, 15 * 1000)
 };
 
-setTimeout(refresh, 15 * 1000);
+refresh();

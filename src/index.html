@@ -37,10 +37,6 @@ var now = Date.now();
         <ul class="stream"></ul>
       </main>
     </responsive-child>
-
-    <script>
-window.mayday = <%= JSON.stringify(json.tweets) %>;
-    </script>
     <script src="app.js"></script>
     <% if (json.project.production) { %>
     <%= !json.project.embedded ? t.include("partials/_adFoot.html") : "" %>

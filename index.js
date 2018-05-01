@@ -14,7 +14,7 @@ var client = new Twitter({
   access_token_secret: auth.twitter.accessSecret
 });
 
-var publish = "grunt bundle less template publish:live";
+var publish = "grunt publish:live";
 
 var follow = [
   "SJGTimes",

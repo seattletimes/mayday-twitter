@@ -97,7 +97,6 @@ module.exports = function(grunt) {
         var extension = upload.path.split(".").pop();
         if (gzippable.indexOf(extension) == -1) return next(null, obj);
         // run compression
-        var before = upload.buffer.length;
         return gzip(upload.buffer, function(err, zipped) {
           if (err) return next(err);
           obj.Body = zipped;
@@ -116,7 +115,6 @@ module.exports = function(grunt) {
           chalk.bold.green(Math.round(after / before * 100).toFixed(1) + "% via gzip")
         );
         console.log.apply(console, args);
-        console.log(obj);
         if (deploy != "simulated") s3.putObject(obj, next);
       }], c);
       
