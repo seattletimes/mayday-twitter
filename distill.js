@@ -31,7 +31,12 @@ var distill = function(tweet) {
       return {
         text: e.url,
         url: e.media_url,
-        video: e.video_info ? e.video_info.variants.filter(v => v.content_type == "video/mp4").shift().url : false
+        video: e.video_info ? 
+          e.video_info.variants
+            .filter(v => v.content_type == "video/mp4")
+            .sort((a, b) => b.bitrate - a.bitrate)
+            .shift().url
+          : false
       }
     });
   }

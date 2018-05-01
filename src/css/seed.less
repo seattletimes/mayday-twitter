@@ -13,10 +13,26 @@ leaflet-map:not([ready]) {
   overflow: hidden;
 }
 
+.container {
+  position: relative;
+
+  &::before {
+    display: block;
+    content: "";
+    padding-bottom: percentage(3 / 4);
+  }
+
+  .interactive {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
 .interactive {
   .display-flex;
-  height: 600px;
-  position: relative;
 
   .tabs {
     display: none;
@@ -34,7 +50,7 @@ leaflet-map:not([ready]) {
   }
 
   leaflet-map {
-    .flex(2);
+    .flex(1);
     z-index: 99;
 
     @media @mobile {
@@ -123,13 +139,17 @@ leaflet-map .tweet {
       // width: 100%;
       display: block;
       margin: auto;
-      max-height: 200px;
+      max-height: 300px;
     }
 
     .inline-video {
       .flex(0 0 100%);
       text-align: center;
       font-size: 14px;
+
+      video {
+        width: 100%;
+      }
     }
   }
 }

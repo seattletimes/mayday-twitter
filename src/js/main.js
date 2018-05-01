@@ -25,9 +25,10 @@ var markerMapping = {};
 var latest = 0;
 
 var makeMarker = function(data) {
+  var hasVideo = data.media.filter(m => m.video).length ? "video" : "";
   var marker = L.marker(data.latlng, {
     icon: L.divIcon({
-      className: `tweet-marker ${ages(data.timestamp)} ${data.tags.join(" ").toLowerCase()}`,
+      className: `tweet-marker ${ages(data.timestamp)} ${hasVideo}`,
       iconSize: null
     })
   });

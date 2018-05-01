@@ -13,29 +13,31 @@ var now = Date.now();
   <body>
 
     <responsive-child>
-      <main class="interactive map">
-        <div class="tabs">
-          <div class="tab selected" data-tab="map">
-            Map
+      <div class="container">
+        <main class="interactive map">
+          <div class="tabs">
+            <div class="tab selected" data-tab="map">
+              Map
+            </div>
+            <div class="tab" data-tab="stream">
+              Stream
+            </div>
           </div>
-          <div class="tab" data-tab="stream">
-            Stream
+          <leaflet-map lat="47.61490053" lng="-122.32074737">
+            <map-options> { "scrollWheelZoom": false } </map-options>
+            <tile-layer layer="cartoPositron"></tile-layer>
+          </leaflet-map>
+          <div class="map-key">
+            <div>
+              <span class="recent dot"></span> Newest updates
+            </div>
+            <div>
+              <span class="video dot"></span> Newest videos
+            </div>
           </div>
-        </div>
-        <leaflet-map lat="47.61490053" lng="-122.32074737">
-          <map-options> { "scrollWheelZoom": false } </map-options>
-          <tile-layer layer="cartoPositron"></tile-layer>
-        </leaflet-map>
-        <div class="map-key">
-          <div>
-            <span class="recent dot"></span> Newest updates
-          </div>
-          <div>
-            <span class="video dot"></span> Newest videos
-          </div>
-        </div>
-        <ul class="stream"></ul>
-      </main>
+          <ul class="stream"></ul>
+        </main>
+      </div>
     </responsive-child>
     <script src="app.js"></script>
     <% if (json.project.production) { %>
