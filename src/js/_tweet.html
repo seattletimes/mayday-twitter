@@ -1,4 +1,4 @@
-<% var hasVideo = !!data.tags.join().match(/video/i); %>
+<% var hasVideo = data.media.filter(function(m) { return m.video }).length; %>
 <div class="tweet <%= hasVideo ? "video" : "" %>">
   <img class="avatar" src="<%= data.avatar %>">
   <a href="https://twitter.com/<%= data.handle %>" class="follow" target="_new">@<%= data.handle %></a>
@@ -29,9 +29,17 @@
   <% if (data.media.length) { %>
   <div class="media-box">
     <% data.media.forEach(function(image) { var url = data.urls[0]; %>
-      <a class="media" href="<%= url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id %>" target="_new">
+      <% var tweetURL = url ? url.long : "https://twitter.com/" + data.handle + "/status/" + data.id; %>
+      <% if (image.video) { %>
+      <div class="media inline-video">
+        <video src="<%= image.video %>" controls></video>
+        <a href="<%= tweetURL %>" target="_new">View on Twitter</a>
+      </div>
+      <% } else { %>
+      <a class="media" href="<%= tweetURL %>" target="_new">
         <img src="<%= image.url %>" class="embedded">
       </a>
+      <% } %>
     <% }); %>
   </div>
   <% } %>

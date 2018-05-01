@@ -43,7 +43,6 @@ var dumpDB = function() {
     json = JSON.stringify(result, null, 2);
     if (!shell.test("-e", "data")) shell.mkdir("data");
     fs.writeFileSync("build/tweets.json", json);
-    fs.writeFileSync("data/tweets.json", json);
     console.log("Completed file dump, building");
     shell.exec(publish, function() {
       inProgress = false;
@@ -137,7 +136,8 @@ async.waterfall([
     client.stream("statuses/filter", {
       // locations: "-122.43,47.48,-122.22,47.73"
       // track: "Seattle"
-      follow: ids.join(",")
+      follow: ids.join(","),
+      tweet_mode: "extended"
     }, function(stream) {
 
       stream.on("data", function(tweet) {

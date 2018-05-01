@@ -22,7 +22,7 @@ var markerGroup = L.featureGroup();
 markerGroup.addTo(map);
 var panelHTML = [];
 var markerMapping = {};
-var latest = null;
+var latest = 0;
 
 var makeMarker = function(data) {
   var marker = L.marker(data.latlng, {
@@ -90,9 +90,8 @@ var refresh = function() {
     time.innerHTML = moment(time.getAttribute("data-time") * 1).fromNow();
   }
   xhr("./tweets.json?_=" + Date.now(), function(err, data) {
-    if (err) console.log(err);
+    if (err) return console.log(err);
     var tweets = data.filter(item => item.timestamp > latest);
-    // tweets = data;
     console.log(`Updating with ${tweets.length} tweets`);
     if (!tweets.length) return;
     //update for next sync

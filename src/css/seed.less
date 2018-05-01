@@ -100,37 +100,35 @@ ul.stream {
     border: 1px solid @df-border-gray;
     border-bottom: none;
 
-    &.video .media {
-      position: relative;
-      display: block;
-
-      &::after {
-        position: absolute;
-        content: url("./assets/play.svg");
-        display: block;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translateX(-50%) translateY(-50%);
-        transform: translateX(-50%) translateY(-50%);
-      }
-    }
-
-    .media-box {
-      .display-flex();
-      .justify-content(center);
-      .align-items(center);
-
-      a {
-        .flex(0 1 200px);
-      }
-
-      img {
-        width: 100%;
-        max-height: auto;
-      }
-    }
-
     .text {
+      font-size: 14px;
+    }
+  }
+}
+
+ul.stream .tweet,
+leaflet-map .tweet {
+  .media-box {
+    .display-flex();
+    .justify-content(center);
+    .align-items(center);
+    .flex-wrap(wrap);
+
+    .media {
+      .flex(1 1 0%);
+      text-align: center;
+    }
+
+    img {
+      // width: 100%;
+      display: block;
+      margin: auto;
+      max-height: 200px;
+    }
+
+    .inline-video {
+      .flex(0 0 100%);
+      text-align: center;
       font-size: 14px;
     }
   }

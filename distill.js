@@ -6,7 +6,6 @@ var locationBlacklist = [
 
 var distill = function(tweet) {
   if (!tweet.user) return null;
-  // console.log(tweet);
   var timestamp = moment(tweet.created_at, "ddd MMM DD HH:mm:ss ZZ YYYY").toDate();
   var parsed = {
     name: tweet.user.name,
@@ -19,18 +18,20 @@ var distill = function(tweet) {
     latlng: null
   }
   var entities = tweet.entities;
+  var extended = tweet.extended_entities || {};
   if (entities.hashtags) {
     parsed.tags = entities.hashtags.map(function(t) { return t.text });
   }
   if (entities.urls) {
     parsed.urls = entities.urls.map(function(entity) { return { short: entity.url, long: entity.expanded_url }});
   }
-  if (entities.media) {
-    parsed.media = entities.media.map(function(e) {
+  if (extended.media || entities.media) {
+    parsed.media = (extended.media || entities.media).map(function(e) {
       parsed.tweet = parsed.tweet.replace(e.url, "");
       return {
         text: e.url,
-        url: e.media_url
+        url: e.media_url,
+        video: e.video_info ? e.video_info.variants.filter(v => v.content_type == "video/mp4").shift().url : false
       }
     });
   }
