@@ -115,11 +115,19 @@ ul.stream {
       }
     }
 
-    img.embedded {
-      max-width: 100%;
-      max-height: 200px;
-      display: block;
-      margin: auto;
+    .media-box {
+      .display-flex();
+      .justify-content(center);
+      .align-items(center);
+
+      a {
+        .flex(0 1 200px);
+      }
+
+      img {
+        width: 100%;
+        max-height: auto;
+      }
     }
 
     .text {

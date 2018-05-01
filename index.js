@@ -118,7 +118,7 @@ async.waterfall([
         async.each(data, function(tweet, done) {
           var t = distill(tweet);
           if (rejectTweet(t)) return done();
-          console.log(t);
+          // console.log(t);
           db.get("SELECT * FROM tweets WHERE id = ?", [t.id], function(err, exists) {
             if (exists) return done();
             db.insertTweet(t, done);
