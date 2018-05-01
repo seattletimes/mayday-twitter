@@ -16,10 +16,19 @@ leaflet-map:not([ready]) {
 .container {
   position: relative;
 
+  @media @mobile {
+    border-top: 1px solid @df-light-gray;
+    border-bottom: 1px solid @df-light-gray;
+  }
+
   &::before {
     display: block;
     content: "";
     padding-bottom: percentage(3 / 4);
+
+    @media @mobile {
+      padding-bottom: percentage(4 / 3);
+    }
   }
 
   .interactive {
