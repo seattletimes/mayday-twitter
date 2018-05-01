@@ -29,7 +29,8 @@ var follow = [
   "ErikaJSchultz",
   "deanrutz",
   "bettinahansen",
-  "SeaTimesFotoKen"
+  "SeaTimesFotoKen",
+  "stevemiletich"
 ];
 
 var dumpDB = function() {
@@ -142,6 +143,7 @@ async.waterfall([
 
       stream.on("data", function(tweet) {
         if (tweet.delete) {
+          console.log("====DELETE===", tweet.delete.status);
           return db.deleteTweet(tweet.delete.status.id_str, scheduleDump);
         }
         // console.log("====ORIGINAL=====\n", tweet);
