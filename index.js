@@ -17,27 +17,19 @@ var client = new Twitter({
 var publish = "grunt bundle less template publish:live";
 
 var follow = [
-  "potreporter",
-  "jessleeST",
-  "stevemiletich",
-  "SeaTimesFotoKen",
-  "stimesmcarter",
+  "SJGTimes",
+  "SusanKelleher",
+  "Jim_Brunner",
+  "pgcornwell",
   "katherinelong",
-  "evanbush",
-  "deleon_times",
-  "sjgtimes",
-  // "lthompsontimes",
-  "lewiskamb",
-  "sringman",
+  "mikelindblom",
+  "ramondompor",
+  "mlbaruchman",
+  "ErikLacitis",
+  "ErikaJSchultz",
+  "deanrutz",
   "bettinahansen",
-  "erikajschultz",
-  "corinnechin",
-  "eriklacitis",
-  "susankelleher",
-  "c_clarridge",
-  "thomaswilburn", // only for control purposes
-  "ellenbanner1",
-  "vernalcoleman"
+  "SeaTimesFotoKen"
 ];
 
 var dumpDB = function() {
@@ -119,12 +111,14 @@ async.waterfall([
     async.each(ids, function(id, c) {
       client.get("statuses/user_timeline", {
         user_id: id,
-        count: 100
+        count: 100,
+        tweet_mode: "extended"
       }, function(err, data) {
         if (err) return c(err);
         async.each(data, function(tweet, done) {
           var t = distill(tweet);
           if (rejectTweet(t)) return done();
+          console.log(t);
           db.get("SELECT * FROM tweets WHERE id = ?", [t.id], function(err, exists) {
             if (exists) return done();
             db.insertTweet(t, done);
@@ -150,9 +144,10 @@ async.waterfall([
         if (tweet.delete) {
           return db.deleteTweet(tweet.delete.status.id_str, scheduleDump);
         }
+        // console.log("====ORIGINAL=====\n", tweet);
         var t = distill(tweet);
         if (rejectTweet(t)) return;
-        console.log(t);
+        console.log("====UPDATE=====\n", t);
         db.insertTweet(t, scheduleDump);
       });
 

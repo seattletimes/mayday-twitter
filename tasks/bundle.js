@@ -21,7 +21,13 @@ module.exports = function(grunt) {
 
     async.forEachOf(seeds, function(dest, src, c) {
       var b = browserify({ debug: mode == "dev" });
-      b.transform(babel, { global: true, presets: ["es2015"]});
+      b.plugin(require("browser-pack-flat/plugin"));
+      b.transform(babel, { global: true, presets: [
+        ["env", {
+          targets: { browsers: ["ie >= 10", "safari >= 8"]},
+          loose: true
+        }]
+      ]});
 
       //make sure build/ exists
       grunt.file.mkdir("build");
@@ -32,7 +38,7 @@ module.exports = function(grunt) {
 
       assembly.on("error", function(err) {
         grunt.log.errorlns(err.message);
-        done();
+        c();
       });
       var mapFile = dest + ".map"
 
@@ -40,7 +46,7 @@ module.exports = function(grunt) {
         //output sourcemap
         assembly = assembly.pipe(exorcist(mapFile, null, null, "."));
       }
-      assembly.pipe(output).on("finish", function() {
+      assembly.pipe(output).on("finish", function(err) {
         if (mode != "dev") return;
 
         //correct path separators in the sourcemap for Windows

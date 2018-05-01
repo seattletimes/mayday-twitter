@@ -17,8 +17,8 @@
     <%
       var text = data.tweet;
       data.urls.forEach(function(url) {
-          var inner = url.long.replace(/\?.+$/, "").split(/\b/).join("<span class=shy>&shy;</span>");
-          text = text.replace(url.short, '<a href="' + url.long + '" target="_new">' + inner + "</a>");
+          var inner = url.long.replace(/^.*:\/\/(www.)?/, "").replace(/\/.*$/, "");
+          text = text.replace(url.short, '<a href="' + url.long + '" target="_new">link to ' + inner + '</a>');
       });
       text = text.replace(/@(\w+)/g, function(mention, name) {
         return '<a href="http://twitter.com/' + name + '" target="_new">' + mention + "</a>";

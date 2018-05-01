@@ -13,7 +13,7 @@ var distill = function(tweet) {
     handle: tweet.user.screen_name,
     timestamp: timestamp.getTime(),
     date: timestamp,
-    tweet: tweet.text,
+    tweet: tweet.extended_tweet ? tweet.extended_tweet.full_text : tweet.full_text ? tweet.full_text : tweet.text,
     id: tweet.id_str,
     avatar: tweet.user.profile_image_url,
     latlng: null
