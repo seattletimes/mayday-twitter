@@ -90,7 +90,7 @@ module.exports = function(grunt) {
           Body: upload.buffer,
           ACL: "public-read",
           ContentType: mime.lookup(upload.path),
-          CacheControl: "public,max-age=300"
+          CacheControl: "public,max-age=15"
         });
       }, function(obj, next) {
         //check for GZIP support
