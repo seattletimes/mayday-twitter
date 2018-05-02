@@ -79,7 +79,9 @@ var scheduleDump = function() {
   inProgress = setTimeout(dumpDB, 1000);
 }
 
-async.waterfall([
+if (process.argv.indexOf("--dump-only") > -1) {
+  dumpDB();
+} else async.waterfall([
   db.init,
   function(callback) {
     var query = "SELECT * FROM users WHERE name IN (" + follow.map(JSON.stringify).join(",") + ");";
@@ -161,4 +163,3 @@ async.waterfall([
     });
   }
 ], console.log.bind(console));
-
